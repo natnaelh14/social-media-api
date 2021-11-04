@@ -1,4 +1,4 @@
-const { User, Post, Follow, Comment, Message, Reaction } = require('../models');
+const { User, Post, Follow, Comment, Message, Reaction, Hashtag } = require('../models');
 
 const resolvers = {
   Query: {
@@ -66,6 +66,21 @@ const resolvers = {
         return reactions;
       }
     },
+    postsByHashtag: async (parent, { hashtag_name }) => {
+      const postIds = await Hashtag.findAll({
+        where: { hashtag_name },
+      })
+      let posts = []
+      for(let i=0; i < postIds.length; i++) {
+        const post = await Post.findOne({
+          where: { id: postIds[i].post_id },
+        });
+        if (post) {
+          posts.push(post);
+        }
+      }
+      return posts;
+    }
   },
 };
 

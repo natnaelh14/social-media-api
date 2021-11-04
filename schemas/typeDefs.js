@@ -77,6 +77,12 @@ const typeDefs = gql`
     DISLIKE
   }
 
+  type Hashtag {
+    id: ID!
+    hashtag_name: String!
+    post_id: ID!
+  }
+
   type Query {
     users: [User!]!
     user(id: ID!): User!
@@ -86,6 +92,7 @@ const typeDefs = gql`
     comments(post_id: ID!): [Comment]
     messages(receiver_id: ID!): [Message]
     reactions(post_id: ID, comment_id: ID): [Reaction]
+    postsByHashtag(hashtag_name: String!): [Post!]
   }
 `;
 
