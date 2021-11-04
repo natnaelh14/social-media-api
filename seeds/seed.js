@@ -1,10 +1,11 @@
 const sequelize = require('../config/connection');
-const { User, Post, Follow, Comment, Message } = require('../models');
+const { User, Post, Follow, Comment, Message, Reaction } = require('../models');
 const userData = require('./userData.json');
 const postData = require('./postData.json');
 const followData = require('./followData.json');
 const commentData = require('./commentData.json');
 const messageData = require('./messageData.json');
+const reactionData = require('./reactionData.json');
 
 const colors = require('colors');
 
@@ -33,6 +34,11 @@ const seedDatabase = async () => {
     });
     //MESSAGE
     await Message.bulkCreate(messageData, {
+      individualHooks: true,
+      returning: true,
+    });
+    //REACTION
+    await Reaction.bulkCreate(reactionData, {
       individualHooks: true,
       returning: true,
     });
