@@ -1,0 +1,50 @@
+[
+    {
+        "follower_user_id": 2,
+        "followed_user_id": 1
+    },
+    {
+        "follower_user_id": 3,
+        "followed_user_id": 1
+    },
+    {
+        "follower_user_id": 4,
+        "followed_user_id": 1
+    },
+    {
+        "follower_user_id": 1,
+        "followed_user_id": 2
+    },
+    {
+        "follower_user_id": 3,
+        "followed_user_id": 2
+    },
+    {
+        "follower_user_id": 4,
+        "followed_user_id": 2
+    },
+    {
+        "follower_user_id": 1,
+        "followed_user_id": 3
+    },
+    {
+        "follower_user_id": 2,
+        "followed_user_id": 3
+    },
+    {
+        "follower_user_id": 4,
+        "followed_user_id": 3
+    },
+    {
+        "follower_user_id": 1,
+        "followed_user_id": 4
+    },
+    {
+        "follower_user_id": 2,
+        "followed_user_id": 4
+    },
+    {
+        "follower_user_id": 3,
+        "followed_user_id": 4
+    }
+]
