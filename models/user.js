@@ -14,20 +14,38 @@ User.init(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: {
+        args: true,
+        msg: 'Oops. Looks like you already have an account with this email address. Please try to login.',
+      },
       validate: {
-        isEmail: true,
+        isEmail: {
+          args: true,
+          msg: 'The email you entered is invalid. Please try again',
+        },
       },
     },
     handle: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    image_url: {
+    avatar: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         isUrl: true,
       },
+    },
+    gender: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isIn: [['FEMALE', 'MALE', 'OTHER']],
+      },
+    },
+    birth_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
     },
     bio: {
       type: DataTypes.STRING,
@@ -49,10 +67,20 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    following_count: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    followers_count: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
     created_at: {
       type: 'TIMESTAMP',
       defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      allowNull: false
+      allowNull: false,
     },
   },
   {
