@@ -1,0 +1,51 @@
+[
+    {
+        "hashtag_name": "bitcoin",
+        "post_id": 1
+    },
+    {
+        "hashtag_name": "bitcoin",
+        "post_id": 3
+    },
+    {
+        "hashtag_name": "bitcoin",
+        "post_id": 5
+    },
+
+    {
+        "hashtag_name": "bitcoin",
+        "post_id": 7
+    },
+    {
+        "hashtag_name": "ethereum",
+        "post_id": 2
+    },
+    {
+        "hashtag_name": "ethereum",
+        "post_id": 3
+    },
+    {
+        "hashtag_name": "ethereum",
+        "post_id": 1
+    },
+    {
+        "hashtag_name": "ethereum",
+        "post_id": 6
+    },
+    {
+        "hashtag_name": "dogecoin",
+        "post_id": 2
+    },
+    {
+        "hashtag_name": "dogecoin",
+        "post_id": 4
+    },
+    {
+        "hashtag_name": "dogecoin",
+        "post_id": 5
+    },
+    {
+        "hashtag_name": "dogecoin",
+        "post_id": 6
+    }
+]

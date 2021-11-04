@@ -1,11 +1,12 @@
 const sequelize = require('../config/connection');
-const { User, Post, Follow, Comment, Message, Reaction } = require('../models');
+const { User, Post, Follow, Comment, Message, Reaction, Hashtag } = require('../models');
 const userData = require('./userData.json');
 const postData = require('./postData.json');
 const followData = require('./followData.json');
 const commentData = require('./commentData.json');
 const messageData = require('./messageData.json');
 const reactionData = require('./reactionData.json');
+const hashtagData = require('./hashtagData.json');
 
 const colors = require('colors');
 
@@ -42,6 +43,11 @@ const seedDatabase = async () => {
       individualHooks: true,
       returning: true,
     });
+    //HASHTAG
+    await Hashtag.bulkCreate(hashtagData, {
+      individualHooks: true,
+      returning: true,
+    })
     console.log('Data Imported!'.green.inverse);
     process.exit(0);
   } catch (e) {
