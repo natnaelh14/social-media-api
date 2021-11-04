@@ -15,6 +15,7 @@ const typeDefs = gql`
     state: String!
     country: String!
     status: Status!
+    isActive: Boolean!
     following_count: Int!
     followers_count: Int!
     created_at: Date!
