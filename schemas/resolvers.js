@@ -1,4 +1,4 @@
-const { User, Post, Follow, Comment, Message } = require('../models');
+const { User, Post, Follow, Comment, Message, Reaction } = require('../models');
 
 const resolvers = {
   Query: {
@@ -39,19 +39,33 @@ const resolvers = {
       return followersList;
     },
     //COMMENTS
-    comments: async (parent,  { post_id }) => {
+    comments: async (parent, { post_id }) => {
       const comments = await Comment.findAll({
-        where: { post_id }
-      })
+        where: { post_id },
+      });
       return comments;
     },
     //MESSAGES
-    messages: async(parent, { receiver_id }) =>{
+    messages: async (parent, { receiver_id }) => {
       const messages = await Message.findAll({
-        where: { receiver_id }
-      })
+        where: { receiver_id },
+      });
       return messages;
-    }
+    },
+    //REACTIONS
+    reactions: async (parent, { post_id, comment_id }) => {
+      if (post_id) {
+        const reactions = await Reaction.findAll({
+          where: { post_id },
+        });
+        return reactions;
+      } else if (comment_id) {
+        const reactions = await Reaction.findAll({
+          where: { comment_id },
+        });
+        return reactions;
+      }
+    },
   },
 };
 

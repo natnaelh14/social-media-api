@@ -64,6 +64,19 @@ const typeDefs = gql`
     created_at: Date!
   }
 
+  type Reaction {
+    id: ID!
+    reaction_type: Reaction_Type!
+    post_id: ID
+    comment_id: ID
+    user_id: ID!
+  }
+
+  enum Reaction_Type {
+    LIKE
+    DISLIKE
+  }
+
   type Query {
     users: [User!]!
     user(id: ID!): User!
@@ -72,6 +85,7 @@ const typeDefs = gql`
     followers(id: ID!): [User]
     comments(post_id: ID!): [Comment]
     messages(receiver_id: ID!): [Message]
+    reactions(post_id: ID, comment_id: ID): [Reaction]
   }
 `;
 
