@@ -44,7 +44,7 @@ User.init(
       },
     },
     birth_date: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     bio: {
@@ -85,6 +85,10 @@ User.init(
       type: 'TIMESTAMP',
       defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       allowNull: false,
+    },
+    updated_at: {
+      type: DataTypes.DATEONLY,
+      allowNull: true,
     },
   },
   {

@@ -19,6 +19,7 @@ const typeDefs = gql`
     following_count: Int!
     followers_count: Int!
     created_at: Date!
+    updated_at: Date!
   }
 
   enum Gender {
@@ -59,9 +60,10 @@ const typeDefs = gql`
   type Message {
     id: ID!
     text: String!
+    isSeen: Boolean!
     sender_id: ID!
     receiver_id: ID!
-    created_at: Date!
+    sent_at: Date!
   }
 
   type Reaction {
@@ -83,6 +85,14 @@ const typeDefs = gql`
     post_id: ID!
   }
 
+  type Crypto {
+    id: ID!
+    crypto_name: String!
+    holding_amount: Int!
+    purchase_date: Date!
+    user_id: ID!
+  }
+
   type Query {
     users: [User!]!
     user(id: ID!): User!
@@ -93,6 +103,7 @@ const typeDefs = gql`
     messages(receiver_id: ID!): [Message]
     reactions(post_id: ID, comment_id: ID): [Reaction]
     postsByHashtag(hashtag_name: String!): [Post!]
+    cryptoByUserId(user_id: ID!): [Crypto!]
   }
 `;
 
