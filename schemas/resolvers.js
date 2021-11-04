@@ -1,4 +1,4 @@
-const { User, Post, Follow, Comment, Message, Reaction, Hashtag } = require('../models');
+const { User, Post, Follow, Comment, Message, Reaction, Hashtag, Crypto } = require('../models');
 
 const resolvers = {
   Query: {
@@ -66,6 +66,7 @@ const resolvers = {
         return reactions;
       }
     },
+    //HASHTAGS
     postsByHashtag: async (parent, { hashtag_name }) => {
       const postIds = await Hashtag.findAll({
         where: { hashtag_name },
@@ -80,6 +81,13 @@ const resolvers = {
         }
       }
       return posts;
+    },
+    //CRYPTO
+    cryptoByUserId: async (parent, { user_id }) => {
+      const cryptos = await Crypto.findAll({
+        where: { user_id }
+      });
+      return cryptos;
     }
   },
 };
