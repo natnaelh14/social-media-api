@@ -1,13 +1,15 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  scalar Date
+
   type User {
     id: ID!
     email: String!
     handle: String!
     avatar: String!
     gender: Gender!
-    birth_date: DateTime!
+    birth_date: Date!
     bio: String!
     city: String!
     state: String!
@@ -15,7 +17,14 @@ const typeDefs = gql`
     status: Status!
     following_count: Int!
     followers_count: Int!
-    created_at: DateTime! @default(expr: $now)
+    created_at: Date!
+  }
+
+  type Post {
+    id: ID!
+    text: String!
+    user_id: ID!
+    created_at: Date!
   }
 
   enum Gender {
@@ -34,6 +43,8 @@ const typeDefs = gql`
   type Query {
     users: [User!]!
     user(id: ID!): User!
+    posts: [Post!]!
+    post(id: ID!): Post!
   }
 `;
 
