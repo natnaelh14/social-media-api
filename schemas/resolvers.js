@@ -23,12 +23,21 @@ const resolvers = {
       return user;
     },
     //FOLLOWERS
-    followers: async (parent, { followed_user_id }) => {
+    followers: async (parent, { id }) => {
       const followers = await Follow.findAll({
-        where: { followed_user_id }
+        where: { followed_user_id: id },
       });
-      return followers;
-    }
+      let followersList = [];
+      for (let i = 0; i < followers.length; i++) {
+        const follower = await User.findOne({
+          where: { id: followers[i].follower_user_id },
+        });
+        if (follower) {
+          followersList.push(follower);
+        }
+      }
+      return followersList;
+    },
   },
 };
 

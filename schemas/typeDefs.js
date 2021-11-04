@@ -52,7 +52,7 @@ const typeDefs = gql`
     user(id: ID!): User!
     posts: [Post!]!
     post(id: ID!): Post!
-    followers(followed_user_id: ID!): [Follow]
+    followers(id: ID!): [User]
   }
 `;
 
