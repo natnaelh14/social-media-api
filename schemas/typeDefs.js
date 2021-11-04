@@ -47,12 +47,21 @@ const typeDefs = gql`
     followed_user_id: ID!
   }
 
+  type Comment {
+    id: ID!
+    text: String!
+    user_id: ID!
+    post_id: ID!
+    created_at: Date!
+  }
+
   type Query {
     users: [User!]!
     user(id: ID!): User!
-    posts: [Post!]!
+    posts: [Post!]
     post(id: ID!): Post!
     followers(id: ID!): [User]
+    comments(post_id: ID!): [Comment]
   }
 `;
 
