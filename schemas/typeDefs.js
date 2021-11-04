@@ -20,13 +20,6 @@ const typeDefs = gql`
     created_at: Date!
   }
 
-  type Post {
-    id: ID!
-    text: String!
-    user_id: ID!
-    created_at: Date!
-  }
-
   enum Gender {
     MALE
     FEMALE
@@ -40,11 +33,26 @@ const typeDefs = gql`
     Optimistic
     Frustrated
   }
+
+  type Post {
+    id: ID!
+    text: String!
+    user_id: ID!
+    created_at: Date!
+  }
+
+  type Follow {
+    id: ID!
+    follower_user_id: ID!
+    followed_user_id: ID!
+  }
+
   type Query {
     users: [User!]!
     user(id: ID!): User!
     posts: [Post!]!
     post(id: ID!): Post!
+    followers(followed_user_id: ID!): [Follow]
   }
 `;
 
