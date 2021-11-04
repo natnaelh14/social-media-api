@@ -5,6 +5,7 @@ const Comment = require('./comment');
 const Message = require('./message');
 const Reaction = require('./reaction');
 const Hashtag = require('./hashtag');
+const Crypto = require('./crypto');
 
 User.hasMany(Post, {
   foreignKey: 'user_id',
@@ -31,4 +32,4 @@ Message.belongsTo(User, {
   foreignKey: 'user_id',
 });
 
-module.exports = { User, Post, Follow, Comment, Message, Reaction, Hashtag };
+module.exports = { User, Post, Follow, Comment, Message, Reaction, Hashtag, Crypto };
