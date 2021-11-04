@@ -1,8 +1,9 @@
 const sequelize = require('../config/connection');
-const { User, Post, Follow } = require('../models');
+const { User, Post, Follow, Comment } = require('../models');
 const userData = require('./userData.json');
 const postData = require('./postData.json');
 const followData = require('./followData.json');
+const commentData = require('./commentData.json');
 
 const colors = require ('colors');
 
@@ -23,6 +24,11 @@ const seedDatabase = async () => {
     await Follow.bulkCreate(followData, {
       individualHooks: true,
       returning: true,
+  })
+  //COMMENT
+  await Comment.bulkCreate(commentData, {
+    individualHooks: true,
+    returning: true,
   })
     console.log('Data Imported!'.green.inverse);
     process.exit(0);
