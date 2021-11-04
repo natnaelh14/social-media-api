@@ -1,4 +1,4 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class FriendRequest extends Model {}
@@ -26,16 +26,11 @@ FriendRequest.init(
       validate: {
         isIn: [['PENDING', 'CONFIRM', 'REJECT']],
       },
-    },
-    created_at: {
-      type: 'TIMESTAMP',
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      allowNull: false,
-    },
+    }
   },
   {
     sequelize,
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'friendRequest',

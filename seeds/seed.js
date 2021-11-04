@@ -1,5 +1,5 @@
 const sequelize = require('../config/connection');
-const { User, Post, Follow, Comment, Message, Reaction, Hashtag, Crypto } = require('../models');
+const { User, Post, Follow, Comment, Message, Reaction, Hashtag, Crypto, FriendRequest } = require('../models');
 const userData = require('./userData.json');
 const postData = require('./postData.json');
 const followData = require('./followData.json');
@@ -8,6 +8,7 @@ const messageData = require('./messageData.json');
 const reactionData = require('./reactionData.json');
 const hashtagData = require('./hashtagData.json');
 const cryptoData = require('./cryptoData.json');
+const friendRequestData = require('./friendRequestData.json');
 
 const colors = require('colors');
 
@@ -51,6 +52,11 @@ const seedDatabase = async () => {
     })
     //CRYPTO
     await Crypto.bulkCreate(cryptoData, {
+      individualHooks: true,
+      returning: true,
+    })
+    //FRIEND REQUEST
+    await FriendRequest.bulkCreate(friendRequestData, {
       individualHooks: true,
       returning: true,
     })
