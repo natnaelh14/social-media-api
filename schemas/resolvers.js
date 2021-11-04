@@ -1,4 +1,4 @@
-const { User, Post, Follow, Comment, Message, Reaction, Hashtag, Crypto } = require('../models');
+const { User, Post, Follow, Comment, Message, Reaction, Hashtag, Crypto, FriendRequest } = require('../models');
 
 const resolvers = {
   Query: {
@@ -13,8 +13,10 @@ const resolvers = {
       return user;
     },
     // POST RESOLVERS
-    posts: async () => {
-      return await Post.findAll({});
+    posts: async (parent, { user_id }) => {
+      return await Post.findAll({
+        where: { user_id }
+      });
     },
     post: async (parent, { id }) => {
       const user = await Post.findOne({
@@ -88,6 +90,54 @@ const resolvers = {
         where: { user_id }
       });
       return cryptos;
+    },
+    //FRIEND REQUEST
+    friendRequests: async(parent, { id }) => {
+      const senderIds = await FriendRequest.findAll({
+        where: { receiver_id: id, status: "PENDING" }
+      })
+      let friendRequests = []
+      for(let i=0; i < senderIds.length; i++) {
+        const friendRequest = await User.findOne({
+          where: { id: senderIds[i].sender_id },
+        });
+        if (friendRequest) {
+          friendRequests.push(friendRequest);
+        }
+      }
+      return friendRequests;
+    },
+    //GET FRIENDS LIST
+    friendsList: async(parent, { id }) => {
+      const friendsIds = await FriendRequest.findAll({
+        where: { receiver_id: id, status: "CONFIRM" }
+      });
+      let friendsList = [];
+      for(let i = 0; i < friendsIds.length; i++) {
+        const friend = await User.findOne({
+          where: { id: friendsIds[i].sender_id },
+        });
+        if(friend) {
+          friendsList.push(friend)
+        }
+      }
+      return friendsList;
+    },
+    //BLOCKED FRIENDS LIST
+    blockedFriendsList: async(parent, { id }) => {
+      const blockedFriendsIds = await FriendRequest.findAll({
+        where: { receiver_id: id, status: 'BLOCKED'}
+      });
+      let blockedFriendsList = [];
+      for(let i = 0; i < blockedFriendsIds.length; i++) {
+        const blockedFriend = await User.findOne({
+          where: { id: blockedFriendsIds[i].sender_id}
+        });
+        if(blockedFriend) {
+          blockedFriendsList.push(blockedFriend)
+        }
+      }
+      return blockedFriendsList;
     }
   },
 };
