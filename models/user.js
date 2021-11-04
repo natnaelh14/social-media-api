@@ -67,6 +67,10 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
     following_count: {
       type: DataTypes.INTEGER,
       allowNull: false,
