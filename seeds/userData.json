@@ -2,41 +2,57 @@
     {
         "email": "john.doe@email.com",
         "handle": "john_doe",
-        "image_url": "https://res.cloudinary.com/doalzf6o2/image/upload/v1635983850/hero-image_yccwx5.png",
+        "avatar": "https://res.cloudinary.com/doalzf6o2/image/upload/v1635983850/hero-image_yccwx5.png",
+        "gender": "MALE",
+        "birth_date": "1980-11-04 02:47:02",
         "bio": "A generally well-mannered person, Writer, Producer",
         "city": "Atlanta",
         "state": "Georgia",
         "country": "USA",
-        "status": "Happy"
+        "status": "Happy",
+        "following_count": 10,
+        "followers_count": 10
     },
     {
         "email": "jane.doe@email.com",
         "handle": "jane_doe",
-        "image_url": "https://res.cloudinary.com/doalzf6o2/image/upload/v1635983850/hero-image_yccwx5.png",
+        "avatar": "https://res.cloudinary.com/doalzf6o2/image/upload/v1635983850/hero-image_yccwx5.png",
+        "gender": "MALE",
+        "birth_date": "1985-11-04 02:47:02",
         "bio": "Freelance illustrator, creative copywriter",
         "city": "Maimi",
         "state": "Florida",
         "country": "USA",
-        "status": "Sad"
+        "status": "Sad",
+        "following_count": 20,
+        "followers_count": 20
     },
     {
         "email": "bob.johnson@email.com",
         "handle": "bob_johnson",
-        "image_url": "https://res.cloudinary.com/doalzf6o2/image/upload/v1635983850/hero-image_yccwx5.png",
+        "avatar": "https://res.cloudinary.com/doalzf6o2/image/upload/v1635983850/hero-image_yccwx5.png",
+        "gender": "MALE",
+        "birth_date": "1990-11-04 02:47:02",
         "bio": "Designer, artist, entrepreneur",
         "city": "Denver",
         "state": "Colorado",
         "country": "USA",
-        "status": "Amused"
+        "status": "Amused",
+        "following_count": 30,
+        "followers_count": 30
     },
     {
         "email": "lebron.james@email.com",
         "handle": "lebron_james",
-        "image_url": "https://res.cloudinary.com/doalzf6o2/image/upload/v1635983850/hero-image_yccwx5.png",
+        "avatar": "https://res.cloudinary.com/doalzf6o2/image/upload/v1635983850/hero-image_yccwx5.png",
+        "gender": "MALE",
+        "birth_date": "1970-11-04 02:47:02",
         "bio": "The greatest of all time",
         "city": "Los Angeles",
         "state": "California",
         "country": "USA",
-        "status": "Frustrated"
+        "status": "Frustrated",
+        "following_count": 40,
+        "followers_count": 40
     }
 ]

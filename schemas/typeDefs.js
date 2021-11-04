@@ -5,12 +5,23 @@ const typeDefs = gql`
     id: ID!
     email: String!
     handle: String!
-    image_url: String!
+    avatar: String!
+    gender: Gender!
+    birth_date: DateTime!
     bio: String!
     city: String!
     state: String!
     country: String!
     status: Status!
+    following_count: Int!
+    followers_count: Int!
+    created_at: DateTime! @default(expr: $now)
+  }
+
+  enum Gender {
+    MALE
+    FEMALE
+    OTHER
   }
   enum Status {
     Happy
