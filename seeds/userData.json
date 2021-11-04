@@ -7,7 +7,7 @@
         "city": "Atlanta",
         "state": "Georgia",
         "country": "USA",
-        "status": "Feeling Good"
+        "status": "Happy"
     },
     {
         "email": "jane.doe@email.com",
@@ -17,7 +17,7 @@
         "city": "Maimi",
         "state": "Florida",
         "country": "USA",
-        "status": "Feeling exhausted"
+        "status": "Sad"
     },
     {
         "email": "bob.johnson@email.com",
@@ -27,7 +27,7 @@
         "city": "Denver",
         "state": "Colorado",
         "country": "USA",
-        "status": "Feeling energetic"
+        "status": "Amused"
     },
     {
         "email": "lebron.james@email.com",
@@ -37,6 +37,6 @@
         "city": "Los Angeles",
         "state": "California",
         "country": "USA",
-        "status": "Feeling old"
+        "status": "Frustrated"
     }
 ]
