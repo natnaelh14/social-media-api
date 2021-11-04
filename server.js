@@ -5,10 +5,10 @@ const { typeDefs, resolvers } = require('./schemas');
 
 const PORT = process.env.PORT || 3001;
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
+// const server = new ApolloServer({
+//   typeDefs,
+//   resolvers,
+// });
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
@@ -29,13 +29,13 @@ const sess = {
 };
 
 app.use(session(sess));
-server.applyMiddleware({ app });
+// server.applyMiddleware({ app });
 
 app
   .listen(PORT, () => {
     console.log(`App listening on port ${PORT}!`);
     sequelize.sync({ force: false });
   })
-  .then(({ url }) => {
-    console.log(`YOUR API IS RUNNING AT: ${url} :)`);
-  });
+  // .then(({ url }) => {
+  //   console.log(`YOUR API IS RUNNING AT: ${url} :)`);
+  // });
