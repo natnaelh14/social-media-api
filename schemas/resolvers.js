@@ -1,4 +1,4 @@
-const { User, Post, Follow } = require('../models');
+const { User, Post, Follow, Comment } = require('../models');
 
 const resolvers = {
   Query: {
@@ -38,6 +38,13 @@ const resolvers = {
       }
       return followersList;
     },
+    //COMMENTS
+    comments: async (parent,  { post_id }) => {
+      const comments = await Comment.findAll({
+        where: { post_id }
+      })
+      return comments;
+    }
   },
 };
 
