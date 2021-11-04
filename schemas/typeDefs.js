@@ -55,6 +55,14 @@ const typeDefs = gql`
     created_at: Date!
   }
 
+  type Message {
+    id: ID!
+    text: String!
+    sender_id: ID!
+    receiver_id: ID!
+    created_at: Date!
+  }
+
   type Query {
     users: [User!]!
     user(id: ID!): User!
@@ -62,6 +70,7 @@ const typeDefs = gql`
     post(id: ID!): Post!
     followers(id: ID!): [User]
     comments(post_id: ID!): [Comment]
+    messages(receiver_id: ID!): [Message]
   }
 `;
 

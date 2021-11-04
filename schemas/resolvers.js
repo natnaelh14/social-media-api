@@ -1,4 +1,4 @@
-const { User, Post, Follow, Comment } = require('../models');
+const { User, Post, Follow, Comment, Message } = require('../models');
 
 const resolvers = {
   Query: {
@@ -44,6 +44,13 @@ const resolvers = {
         where: { post_id }
       })
       return comments;
+    },
+    //MESSAGES
+    messages: async(parent, { receiver_id }) =>{
+      const messages = await Message.findAll({
+        where: { receiver_id }
+      })
+      return messages;
     }
   },
 };
