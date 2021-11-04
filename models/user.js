@@ -66,6 +66,11 @@ User.init(
     status: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isIn: [
+          ['HAPPY', 'SAD', 'EXCITED', 'AMUSED', 'OPTIMISTIC', 'FRUSTRATED'],
+        ],
+      },
     },
     isActive: {
       type: DataTypes.BOOLEAN,

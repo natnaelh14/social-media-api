@@ -28,12 +28,12 @@ const typeDefs = gql`
     OTHER
   }
   enum Status {
-    Happy
-    Sad
-    Excited
-    Amused
-    Optimistic
-    Frustrated
+    HAPPY
+    SAD
+    EXCITED
+    AMUSED
+    OPTIMISTIC
+    FRUSTRATED
   }
 
   type Post {
@@ -93,10 +93,24 @@ const typeDefs = gql`
     user_id: ID!
   }
 
+  type FriendRequest {
+    id: ID!
+    sender_id: ID!
+    receiver_id: ID!
+    status: Status!
+  }
+
+  enum Status {
+    PENDING
+    CONFIRM
+    REJECT
+    BLOCKED
+  }
+
   type Query {
     users: [User!]!
     user(id: ID!): User!
-    posts: [Post!]
+    posts(user_id: ID!): [Post!]
     post(id: ID!): Post!
     followers(id: ID!): [User]
     comments(post_id: ID!): [Comment]
@@ -104,6 +118,9 @@ const typeDefs = gql`
     reactions(post_id: ID, comment_id: ID): [Reaction]
     postsByHashtag(hashtag_name: String!): [Post!]
     cryptoByUserId(user_id: ID!): [Crypto!]
+    friendRequests(id: ID!): [User!]
+    friendsList(id: ID!): [User!]
+    blockedFriendsList(id: ID!): [User!]
   }
 `;
 
