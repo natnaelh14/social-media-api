@@ -25,9 +25,9 @@ User.init(
     image_url: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    validate: {
-      isUrl: true,
+      validate: {
+        isUrl: true,
+      },
     },
     bio: {
       type: DataTypes.STRING,
@@ -42,6 +42,10 @@ User.init(
       allowNull: false,
     },
     country: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    status: {
       type: DataTypes.STRING,
       allowNull: false,
     },
