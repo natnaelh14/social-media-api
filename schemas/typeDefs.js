@@ -14,10 +14,8 @@ const typeDefs = gql`
     city: String!
     state: String!
     country: String!
-    status: Status!
+    status: MoodStatus!
     isActive: Boolean!
-    following_count: Int!
-    followers_count: Int!
     created_at: Date!
     updated_at: Date!
   }
@@ -27,7 +25,7 @@ const typeDefs = gql`
     FEMALE
     OTHER
   }
-  enum Status {
+  enum MoodStatus {
     HAPPY
     SAD
     EXCITED
@@ -103,7 +101,6 @@ const typeDefs = gql`
   enum Status {
     PENDING
     CONFIRM
-    REJECT
     BLOCKED
   }
 

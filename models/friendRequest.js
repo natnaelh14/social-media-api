@@ -24,7 +24,7 @@ FriendRequest.init(
       allowNull: false,
       defaultValue: 'PENDING',
       validate: {
-        isIn: [['PENDING', 'CONFIRM', 'REJECT', 'BLOCKED']],
+        isIn: [['PENDING', 'CONFIRM', 'BLOCKED']],
       },
     }
   },
