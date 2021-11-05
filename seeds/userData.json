@@ -9,10 +9,8 @@
         "city": "Atlanta",
         "state": "Georgia",
         "country": "USA",
-        "status": "Happy",
-        "isActive": false,
-        "following_count": 10,
-        "followers_count": 10
+        "status": "HAPPY",
+        "isActive": false
     },
     {
         "email": "jane.doe@email.com",
@@ -24,10 +22,8 @@
         "city": "Maimi",
         "state": "Florida",
         "country": "USA",
-        "status": "Sad",
-        "isActive": false,
-        "following_count": 20,
-        "followers_count": 20
+        "status": "SAD",
+        "isActive": false
     },
     {
         "email": "bob.johnson@email.com",
@@ -39,10 +35,8 @@
         "city": "Denver",
         "state": "Colorado",
         "country": "USA",
-        "status": "Amused",
-        "isActive": false,
-        "following_count": 30,
-        "followers_count": 30
+        "status": "AMUSED",
+        "isActive": false
     },
     {
         "email": "lebron.james@email.com",
@@ -54,9 +48,7 @@
         "city": "Los Angeles",
         "state": "California",
         "country": "USA",
-        "status": "Frustrated",
-        "isActive": false,
-        "following_count": 40,
-        "followers_count": 40
+        "status": "FRUSTRATED",
+        "isActive": false
     }
 ]
