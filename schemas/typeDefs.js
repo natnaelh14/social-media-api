@@ -20,6 +20,11 @@ const typeDefs = gql`
     updated_at: Date!
   }
 
+  type Auth {
+    token: ID!
+    user: User
+  }
+
   enum Gender {
     MALE
     FEMALE
@@ -118,6 +123,24 @@ const typeDefs = gql`
     friendRequests(id: ID!): [User!]
     friendsList(id: ID!): [User!]
     blockedFriendsList(id: ID!): [User!]
+  }
+  type Mutation {
+    login(email: String!, password: String!): Auth
+    addUser(
+      email: String!
+      password: String!
+      handle: String!
+      avatar: String!
+      gender: Gender!
+      birth_date: Date!
+      bio: String
+      city: String!
+      country: String!
+      status: MoodStatus!
+      isActive: Boolean!
+      created_at: Date!
+      updated_at: Date!
+    ): User!
   }
 `;
 

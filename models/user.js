@@ -25,6 +25,13 @@ User.init(
         },
       },
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [8],
+      },
+    },
     handle: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -49,23 +56,23 @@ User.init(
     },
     bio: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     city: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     state: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     country: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     status: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         isIn: [
           ['HAPPY', 'SAD', 'EXCITED', 'AMUSED', 'OPTIMISTIC', 'FRUSTRATED'],
@@ -75,16 +82,6 @@ User.init(
     isActive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-    },
-    following_count: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
-    },
-    followers_count: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
     },
     created_at: {
       type: 'TIMESTAMP',
@@ -97,6 +94,14 @@ User.init(
     },
   },
   {
+    hooks: {
+      beforeCreate: async (newUserData) => {
+        newUserData.password = await bcrypt.hash(newUserData.password, 10);
+        newUserData.email = await newUserData.fname.trim();
+        newUserData.handle = await newUserData.lname.trim();
+        return newUserData;
+      },
+    },
     sequelize,
     timestamps: true,
     freezeTableName: true,
@@ -105,4 +110,7 @@ User.init(
   }
 );
 
+User.prototype.validPassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 module.exports = User;

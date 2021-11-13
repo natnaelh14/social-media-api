@@ -1,4 +1,6 @@
 const { User, Post, Follow, Comment, Message, Reaction, Hashtag, Crypto, FriendRequest } = require('../models');
+const { signToken } = require('../utils/auth');
+const { AuthenticationError } = require('apollo-server-express')
 
 const resolvers = {
   Query: {
@@ -140,6 +142,63 @@ const resolvers = {
       return blockedFriendsList;
     }
   },
-};
+  Mutation: {
+    addUser: async (
+      parent,
+      {
+        email,
+        password,
+        handle,
+        avatar,
+        gender,
+        birth_date,
+        bio,
+        city,
+        status,
+        country,
+        isActive,
+        created_at,
+        updated_at,
+      }
+    ) => {
+      const user = await User.create({
+        email,
+        password,
+        handle,
+        avatar,
+        gender,
+        birth_date,
+        bio,
+        city,
+        status,
+        country,
+        isActive,
+        created_at,
+        updated_at,
+      });
+      //We run our signed token and add the value of user into it.
+      const token = signToken(user);
+      return { token, user };
+  },
+  login: async (parent, { email, password }) => {
+    try {
+      // Look up the user by the provided username. Since the `username` field is unique, we know that only one person will exist with that username
+      const user = await User.findOne({ email }).select('+password');
+      if (!user) {
+        throw new AuthenticationError('Incorrect username');
+      }
+      //If there is a user found, execute the `isCorrectPassword` instance method and check if the correct password was provided
+      const correctPw = await user.isCorrectPassword(password);
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect password');
+      }
+      const token = signToken(user);
+      return { token, user };
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
+}
+}
 
 module.exports = resolvers;
