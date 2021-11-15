@@ -1,5 +1,6 @@
 [
     {
+        "user_id": "ouNpLyOvRmOWrWFszIC6dsfsdfsdf",
         "email": "john.doe@email.com",
         "handle": "john_doe",
         "avatar": "https://res.cloudinary.com/doalzf6o2/image/upload/v1635983850/hero-image_yccwx5.png",
@@ -13,6 +14,7 @@
         "isActive": false
     },
     {
+        "user_id": "ouNpLyOvRmOWKSDSKskss",
         "email": "jane.doe@email.com",
         "handle": "jane_doe",
         "avatar": "https://res.cloudinary.com/doalzf6o2/image/upload/v1635983850/hero-image_yccwx5.png",
@@ -26,6 +28,7 @@
         "isActive": false
     },
     {
+        "user_id": "ouNpLyOvRmOWrWFszIC67sWJD",
         "email": "bob.johnson@email.com",
         "handle": "bob_johnson",
         "avatar": "https://res.cloudinary.com/doalzf6o2/image/upload/v1635983850/hero-image_yccwx5.png",
@@ -39,6 +42,7 @@
         "isActive": false
     },
     {
+        "user_id": "ouNpLyOSKLDSD339sjadfsda",
         "email": "lebron.james@email.com",
         "handle": "lebron_james",
         "avatar": "https://res.cloudinary.com/doalzf6o2/image/upload/v1635983850/hero-image_yccwx5.png",

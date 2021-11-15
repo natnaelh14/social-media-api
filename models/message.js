@@ -16,18 +16,12 @@ Message.init(
       allowNull: false,
     },
     sender_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'user',
-        key: 'id',
-      },
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     receiver_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'user',
-        key: 'id',
-      },
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     isSeen: {
       type: Sequelize.BOOLEAN,

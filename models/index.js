@@ -8,29 +8,95 @@ const Hashtag = require('./hashtag');
 const Crypto = require('./crypto');
 const FriendRequest = require('./friendRequest');
 
+//POST
 User.hasMany(Post, {
-  foreignKey: 'user_id',
+  foreignKey: {
+    name: 'user_id',
+    allowNull: false,
+  },
 });
 
-Post.belongsTo(User, {
-  foreignKey: 'user_id',
-});
+Post.belongsTo(User, { as: 'user'});
 
 Post.hasMany(Comment, {
-  foreignKey: 'post_id',
-  constraints: false
+  foreignKey: {
+    name: 'post_id',
+    allowNull: false,
+  },
 });
 
-Comment.belongsTo(Post, {
-  foreignKey: 'post_id',
-});
+//COMMENT
+Comment.belongsTo(Post, { as: 'post'})
+
+User.hasMany(Comment, {
+  foreignKey: {
+    name: 'user_id',
+    allowNull: false,
+  },
+})
+
+Comment.belongsTo(User, { as: 'user'});
 
 User.hasMany(Message, {
   foreignKey: 'user_id',
 });
 
-Message.belongsTo(User, {
-  foreignKey: 'user_id',
-});
+// //MESSAGES
+// User.hasMany(Message, {
+//   foreignKey: {
+//     name: 'user_id',
+//     allowNull: false,
+//   },
+// })
 
-module.exports = { User, Post, Follow, Comment, Message, Reaction, Hashtag, Crypto, FriendRequest };
+// Message.belongsTo(User, { as: 'user'});
+
+//REACTION
+User.hasMany(Reaction, {
+  foreignKey: {
+    name: 'user_id',
+    allowNull: false,
+  },
+})
+
+Reaction.belongsTo(User, { as: 'user'});
+
+Post.hasMany(Reaction, {
+  foreignKey: {
+    name: 'post_id',
+    allowNull: false,
+  },
+})
+
+Reaction.belongsTo(Post, { as: 'post'});
+
+Comment.hasMany(Reaction, {
+  foreignKey: {
+    name: 'comment_id',
+    allowNull: false,
+  },
+})
+
+Reaction.belongsTo(Comment, { as: 'comment'});
+
+//CRYPTO
+User.hasMany(Crypto, {
+  foreignKey: {
+    name: 'user_id',
+    allowNull: false,
+  },
+})
+
+Crypto.belongsTo(User, { as: 'user'});
+
+module.exports = {
+  User,
+  Post,
+  Follow,
+  Comment,
+  Message,
+  Reaction,
+  Hashtag,
+  Crypto,
+  FriendRequest,
+};

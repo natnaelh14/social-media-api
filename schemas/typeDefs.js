@@ -5,24 +5,20 @@ const typeDefs = gql`
 
   type User {
     id: ID!
+    uid: ID!
     email: String!
     handle: String!
-    avatar: String!
-    gender: Gender!
-    birth_date: Date!
-    bio: String!
-    city: String!
-    state: String!
-    country: String!
-    status: MoodStatus!
+    avatar: String
+    gender: Gender
+    birth_date: Date
+    bio: String
+    city: String
+    state: String
+    country: String
+    status: MoodStatus
     isActive: Boolean!
     created_at: Date!
     updated_at: Date!
-  }
-
-  type Auth {
-    token: ID!
-    user: User
   }
 
   enum Gender {
@@ -40,9 +36,8 @@ const typeDefs = gql`
   }
 
   type Post {
-    id: ID!
     text: String!
-    user_id: ID!
+    user_id: String!
     created_at: Date!
   }
 
@@ -110,37 +105,35 @@ const typeDefs = gql`
   }
 
   type Query {
-    users: [User!]!
-    user(id: ID!): User!
-    posts(user_id: ID!): [Post!]
-    post(id: ID!): Post!
-    followers(id: ID!): [User]
-    comments(post_id: ID!): [Comment]
-    messages(receiver_id: ID!): [Message]
-    reactions(post_id: ID, comment_id: ID): [Reaction]
-    postsByHashtag(hashtag_name: String!): [Post!]
-    cryptoByUserId(user_id: ID!): [Crypto!]
-    friendRequests(id: ID!): [User!]
-    friendsList(id: ID!): [User!]
-    blockedFriendsList(id: ID!): [User!]
+    userProfile(uid: ID!): User!
   }
   type Mutation {
-    login(email: String!, password: String!): Auth
-    addUser(
+    addUserProfile(
+      uid: ID!
       email: String!
-      password: String!
       handle: String!
-      avatar: String!
-      gender: Gender!
-      birth_date: Date!
+    ): User!
+    updateUserProfile(
+      id: ID!
+      uid: ID!
+      email: String!
+      handle: String!
+      avatar: String
+      gender: Gender
+      birth_date: Date
       bio: String
-      city: String!
-      country: String!
-      status: MoodStatus!
+      city: String
+      state: String
+      country: String
+      status: MoodStatus
       isActive: Boolean!
       created_at: Date!
       updated_at: Date!
     ): User!
+    addPost(
+      text: String!
+      user_id: String!
+    ): Post!
   }
 `;
 

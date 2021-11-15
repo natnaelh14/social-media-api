@@ -11,6 +11,10 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    user_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -25,34 +29,27 @@ User.init(
         },
       },
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [8],
-      },
-    },
     handle: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     avatar: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         isUrl: true,
       },
     },
     gender: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         isIn: [['FEMALE', 'MALE', 'OTHER']],
       },
     },
     birth_date: {
       type: DataTypes.DATEONLY,
-      allowNull: false,
+      allowNull: true,
     },
     bio: {
       type: DataTypes.STRING,
@@ -81,6 +78,7 @@ User.init(
     },
     isActive: {
       type: DataTypes.BOOLEAN,
+      defaultValue: false,
       allowNull: false,
     },
     created_at: {
@@ -94,14 +92,6 @@ User.init(
     },
   },
   {
-    hooks: {
-      beforeCreate: async (newUserData) => {
-        newUserData.password = await bcrypt.hash(newUserData.password, 10);
-        newUserData.email = await newUserData.fname.trim();
-        newUserData.handle = await newUserData.lname.trim();
-        return newUserData;
-      },
-    },
     sequelize,
     timestamps: true,
     freezeTableName: true,
@@ -110,7 +100,4 @@ User.init(
   }
 );
 
-User.prototype.validPassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
-};
 module.exports = User;
