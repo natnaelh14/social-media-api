@@ -5,7 +5,6 @@ const typeDefs = gql`
 
   type User {
     id: ID!
-    uid: ID!
     email: String!
     handle: String!
     avatar: String
@@ -36,8 +35,9 @@ const typeDefs = gql`
   }
 
   type Post {
+    id: ID!
     text: String!
-    user_id: String!
+    user_id: ID!
     created_at: Date!
   }
 
@@ -105,17 +105,26 @@ const typeDefs = gql`
   }
 
   type Query {
-    userProfile(uid: ID!): User!
+    userProfile(id: ID!): User!
+    getPosts(user_id: ID!): [Post!]
+    followers(id: ID!): [User]
+    comments(post_id: ID!): [Comment]
+    messages(receiver_id: ID!): [Message]
+    reactions(post_id: ID, comment_id: ID): [Reaction]
+    postsByHashtag(hashtag_name: String!): [Post!]
+    cryptoByUserId(user_id: ID!): [Crypto!]
+    friendRequests(id: ID!): [User!]
+    friendsList(id: ID!): [User!]
+    blockedFriendsList(id: ID!): [User!]
   }
   type Mutation {
     addUserProfile(
-      uid: ID!
+      id: ID!
       email: String!
       handle: String!
     ): User!
     updateUserProfile(
       id: ID!
-      uid: ID!
       email: String!
       handle: String!
       avatar: String
@@ -132,7 +141,7 @@ const typeDefs = gql`
     ): User!
     addPost(
       text: String!
-      user_id: String!
+      user_id: ID!
     ): Post!
   }
 `;

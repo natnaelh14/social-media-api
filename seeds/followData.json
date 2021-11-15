@@ -1,50 +1,50 @@
 [
     {
-        "follower_user_id": 2,
-        "followed_user_id": 1
+        "follower_user_id": "two",
+        "followed_user_id": "one"
     },
     {
-        "follower_user_id": 3,
-        "followed_user_id": 1
+        "follower_user_id": "three",
+        "followed_user_id": "one"
     },
     {
-        "follower_user_id": 4,
-        "followed_user_id": 1
+        "follower_user_id": "four",
+        "followed_user_id": "one"
     },
     {
-        "follower_user_id": 1,
-        "followed_user_id": 2
+        "follower_user_id": "one",
+        "followed_user_id": "two"
     },
     {
-        "follower_user_id": 3,
-        "followed_user_id": 2
+        "follower_user_id": "three",
+        "followed_user_id": "two"
     },
     {
-        "follower_user_id": 4,
-        "followed_user_id": 2
+        "follower_user_id": "four",
+        "followed_user_id": "two"
     },
     {
-        "follower_user_id": 1,
-        "followed_user_id": 3
+        "follower_user_id": "one",
+        "followed_user_id": "three"
     },
     {
-        "follower_user_id": 2,
-        "followed_user_id": 3
+        "follower_user_id": "two",
+        "followed_user_id": "three"
     },
     {
-        "follower_user_id": 4,
-        "followed_user_id": 3
+        "follower_user_id": "four",
+        "followed_user_id": "three"
     },
     {
-        "follower_user_id": 1,
-        "followed_user_id": 4
+        "follower_user_id": "one",
+        "followed_user_id": "four"
     },
     {
-        "follower_user_id": 2,
-        "followed_user_id": 4
+        "follower_user_id": "two",
+        "followed_user_id": "four"
     },
     {
-        "follower_user_id": 3,
-        "followed_user_id": 4
+        "follower_user_id": "three",
+        "followed_user_id": "four"
     }
 ]

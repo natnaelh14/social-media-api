@@ -3,72 +3,72 @@
         "crypto_name": "Bitcoin",
         "holding_amount": 10,
         "purchase_date": "2020-11-04 02:47:02",
-        "user_id": 1
+        "user_id": "one"
     },
     {
         "crypto_name": "Tether",
         "holding_amount": 1000,
         "purchase_date": "2020-08-04 02:47:02",
-        "user_id": 1
+        "user_id": "one"
     },
     {
         "crypto_name": "Solana",
         "holding_amount": 400,
         "purchase_date": "2020-12-04 02:47:02",
-        "user_id": 1
+        "user_id": "one"
     },
     {
         "crypto_name": "XRP",
         "holding_amount": 800,
         "purchase_date": "2020-07-04 02:47:02",
-        "user_id": 2
+        "user_id": "two"
     },
     {
         "crypto_name": "Polkadot",
         "holding_amount": 600,
         "purchase_date": "2020-12-20 02:47:02",
-        "user_id": 2
+        "user_id": "two"
     },
     {
         "crypto_name": "Shiba Inu",
         "holding_amount": 450,
         "purchase_date": "2020-06-04 02:47:02",
-        "user_id": 2
+        "user_id": "two"
     },
     {
         "crypto_name": "Dogecoin",
         "holding_amount": 2000,
         "purchase_date": "2020-02-04 02:47:02",
-        "user_id": 3
+        "user_id": "three"
     },
     {
         "crypto_name": "Binance Coin",
         "holding_amount": 30000,
         "purchase_date": "2020-03-09 02:47:02",
-        "user_id": 3
+        "user_id": "three"
     },
     {
         "crypto_name": "Ethereum",
         "holding_amount": 50,
         "purchase_date": "2020-01-10 02:47:02",
-        "user_id": 3
+        "user_id": "three"
     },
     {
         "crypto_name": "Litecoin",
         "holding_amount": 300,
         "purchase_date": "2020-02-15 02:47:02",
-        "user_id": 4
+        "user_id": "four"
     },
     {
         "crypto_name": "Terra",
         "holding_amount": 100,
         "purchase_date": "2020-03-11 02:47:02",
-        "user_id": 4
+        "user_id": "four"
     },
     {
         "crypto_name": "Algorand",
         "holding_amount": 350,
         "purchase_date": "2020-05-13 02:47:02",
-        "user_id": 4
+        "user_id": "four"
     }
 ]

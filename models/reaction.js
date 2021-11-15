@@ -31,10 +31,9 @@ Reaction.init(
     },
     user_id: {
       type: DataTypes.STRING,
-      allowNull: false,
       references: {
         model: 'user',
-        key: 'user_id',
+        key: 'id',
       },
     },
   },

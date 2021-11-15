@@ -1,62 +1,62 @@
 [
     {
-        "sender_id": 1,
-        "receiver_id": 2,
+        "sender_id": "one",
+        "receiver_id": "two",
         "status": "PENDING"
     },
     {
-        "sender_id": 1,
-        "receiver_id": 2,
+        "sender_id": "one",
+        "receiver_id": "two",
         "status": "CONFIRM"
     },
     {
-        "sender_id": 1,
-        "receiver_id": 2,
+        "sender_id": "one",
+        "receiver_id": "two",
         "status": "REJECT"
     },
     {
-        "sender_id": 2,
-        "receiver_id": 1,
+        "sender_id": "two",
+        "receiver_id": "one",
         "status": "PENDING"
     },
     {
-        "sender_id": 2,
-        "receiver_id": 3,
+        "sender_id": "two",
+        "receiver_id": "three",
         "status": "CONFIRM"
     },
     {
-        "sender_id": 2,
-        "receiver_id": 4,
+        "sender_id": "two",
+        "receiver_id": "four",
         "status": "REJECT"
     },
     {
-        "sender_id": 3,
-        "receiver_id": 1,
+        "sender_id": "three",
+        "receiver_id": "one",
         "status": "PENDING"
     },
     {
-        "sender_id": 3,
-        "receiver_id": 1,
+        "sender_id": "thee",
+        "receiver_id": "one",
         "status": "CONFIRM"
     },
     {
-        "sender_id": 3,
-        "receiver_id": 4,
+        "sender_id": "three",
+        "receiver_id": "four",
         "status": "REJECT"
     },
     {
-        "sender_id": 4,
-        "receiver_id": 1,
+        "sender_id": "four",
+        "receiver_id": "one",
         "status": "PENDING"
     },
     {
-        "sender_id": 4,
-        "receiver_id": 2,
+        "sender_id": "four",
+        "receiver_id": "two",
         "status": "CONFIRM"
     },
     {
-        "sender_id": 4,
-        "receiver_id": 3,
+        "sender_id": "four",
+        "receiver_id": "three",
         "status": "BLOCKED"
     }
 ]
