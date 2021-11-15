@@ -13,11 +13,9 @@ Follow.init(
     },
     follower_user_id: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     followed_user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: DataTypes.STRING,
     },
   },
   {

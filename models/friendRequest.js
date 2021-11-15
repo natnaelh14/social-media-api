@@ -12,11 +12,11 @@ FriendRequest.init(
       autoIncrement: true,
     },
     sender_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     receiver_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     status: {
@@ -26,7 +26,7 @@ FriendRequest.init(
       validate: {
         isIn: [['PENDING', 'CONFIRM', 'BLOCKED']],
       },
-    }
+    },
   },
   {
     sequelize,

@@ -41,16 +41,6 @@ User.hasMany(Message, {
   foreignKey: 'user_id',
 });
 
-// //MESSAGES
-// User.hasMany(Message, {
-//   foreignKey: {
-//     name: 'user_id',
-//     allowNull: false,
-//   },
-// })
-
-// Message.belongsTo(User, { as: 'user'});
-
 //REACTION
 User.hasMany(Reaction, {
   foreignKey: {
@@ -88,6 +78,7 @@ User.hasMany(Crypto, {
 })
 
 Crypto.belongsTo(User, { as: 'user'});
+
 
 module.exports = {
   User,

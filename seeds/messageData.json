@@ -16,27 +16,27 @@
     },
     {
         "text": "text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        "sender_id": 4,
-        "receiver_id": 2
+        "sender_id": "four",
+        "receiver_id": "two"
     },
     {
         "text": "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-        "sender_id": 1,
-        "receiver_id": 3
+        "sender_id": "one",
+        "receiver_id": "three"
     },
     {
         "text": "It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        "sender_id": 2,
-        "receiver_id": 3
+        "sender_id": "two",
+        "receiver_id": "three"
     },
     {
         "text": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-        "sender_id": 1,
-        "receiver_id": 4
+        "sender_id": "one",
+        "receiver_id": "four"
     },
     {
         "text": "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
-        "sender_id": 2,
-        "receiver_id": 4
+        "sender_id": "two",
+        "receiver_id": "four"
     }
 ]
