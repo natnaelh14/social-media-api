@@ -20,7 +20,7 @@ const resolvers = {
       return user;
     },
     // POST RESOLVERS
-    getPosts: async (parent, { user_id }) => {
+    posts: async (parent, { user_id }) => {
       return await Post.findAll({
         where: { user_id },
       });
