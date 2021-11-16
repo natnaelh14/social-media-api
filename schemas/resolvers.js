@@ -21,6 +21,7 @@ const resolvers = {
     },
     // POST RESOLVERS
     posts: async (parent, { user_id }) => {
+      
       return await Post.findAll({
         where: { user_id },
       });
@@ -92,7 +93,14 @@ const resolvers = {
       });
       return cryptos;
     },
-    //FRIEND REQUEST
+    //FIND SINGLE FRIEND REQUEST
+    friendRequest: async (parent, { receiver_id, sender_id }) => {
+      const friendRequest = await FriendRequest.findOne({
+        where: { receiver_id, sender_id },
+      });
+      return friendRequest;
+    },
+    //FRIEND REQUEST PENDING LIST
     friendRequests: async (parent, { id }) => {
       const senderIds = await FriendRequest.findAll({
         where: { receiver_id: id, status: 'PENDING' },
@@ -211,8 +219,20 @@ const resolvers = {
         });
         return request;
       } else if (verifyRequest) {
-        throw new Error("Friend Request has already been sent.")
+        throw new Error('Friend Request has already been sent.');
       }
+    },
+    respondFollowRequest: async (
+      parent,
+      { id, status, sender_id, receiver_id }
+    ) => {
+      const response = await FriendRequest.update(
+        { id, status, sender_id, receiver_id },
+        {
+          where: { id }
+        },
+      );
+      return response;
     },
   },
 };

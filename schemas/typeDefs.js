@@ -43,8 +43,8 @@ const typeDefs = gql`
 
   type Follow {
     id: ID!
-    follower_user_id: ID!
-    followed_user_id: ID!
+    follower_user_id: String!
+    followed_user_id: String!
   }
 
   type Comment {
@@ -93,8 +93,8 @@ const typeDefs = gql`
 
   type FriendRequest {
     id: ID!
-    sender_id: ID!
-    receiver_id: ID!
+    sender_id: String!
+    receiver_id: String!
     status: Status!
   }
 
@@ -113,6 +113,7 @@ const typeDefs = gql`
     reactions(post_id: ID, comment_id: ID): [Reaction]
     postsByHashtag(hashtag_name: String!): [Post!]
     cryptoByUserId(user_id: ID!): [Crypto!]
+    friendRequest(receiver_id: String!, sender_id: String!): FriendRequest
     friendRequests(id: ID!): [User!]
     friendsList(id: ID!): [User!]
     blockedFriendsList(id: ID!): [User!]
@@ -144,8 +145,14 @@ const typeDefs = gql`
       user_id: ID!
     ): Post!
     followRequest(
-      sender_id: ID!
-      receiver_id: ID!
+      sender_id: String!
+      receiver_id: String!
+    ):FriendRequest!
+    respondFollowRequest(
+      id: ID!
+      sender_id: String!
+      receiver_id: String!
+      status: Status!
     ):FriendRequest!
   }
 `;
