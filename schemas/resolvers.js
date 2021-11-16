@@ -242,6 +242,13 @@ const resolvers = {
         throw new Error(e.message);
       }
     },
+    addComment: async (parent, { user_id, post_id, text }) => {
+      return await Comment.create({
+        user_id,
+        post_id,
+        text,
+      });
+    },
   },
 };
 
