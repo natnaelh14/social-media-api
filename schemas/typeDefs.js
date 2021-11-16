@@ -106,7 +106,7 @@ const typeDefs = gql`
 
   type Query {
     userProfile(id: ID!): User!
-    getPosts(user_id: ID!): [Post!]
+    posts(user_id: ID!): [Post!]
     followers(id: ID!): [User]
     comments(post_id: ID!): [Comment]
     messages(receiver_id: ID!): [Message]
@@ -143,6 +143,10 @@ const typeDefs = gql`
       text: String!
       user_id: ID!
     ): Post!
+    followRequest(
+      sender_id: ID!
+      receiver_id: ID!
+    ):FriendRequest!
   }
 `;
 
