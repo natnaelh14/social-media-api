@@ -154,6 +154,7 @@ const typeDefs = gql`
       receiver_id: String!
       status: Status!
     ):FriendRequest!
+    deletePost(id:ID!):Post
   }
 `;
 

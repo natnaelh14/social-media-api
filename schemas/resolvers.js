@@ -21,7 +21,6 @@ const resolvers = {
     },
     // POST RESOLVERS
     posts: async (parent, { user_id }) => {
-      
       return await Post.findAll({
         where: { user_id },
       });
@@ -206,20 +205,20 @@ const resolvers = {
       return user;
     },
     followRequest: async (parent, { sender_id, receiver_id }) => {
-      const verifyRequest = await FriendRequest.findOne({
+      const findRequest = await FriendRequest.findOne({
         where: {
           sender_id,
           receiver_id,
         },
       });
-      if (!verifyRequest) {
+      if (!findRequest) {
         const request = await FriendRequest.create({
           sender_id,
           receiver_id,
         });
         return request;
-      } else if (verifyRequest) {
-        throw new Error('Friend Request has already been sent.');
+      } else if (findRequest) {
+        throw new Error('Friend Request already exists.');
       }
     },
     respondFollowRequest: async (
@@ -229,10 +228,19 @@ const resolvers = {
       const response = await FriendRequest.update(
         { id, status, sender_id, receiver_id },
         {
-          where: { id }
-        },
+          where: { id },
+        }
       );
       return response;
+    },
+    deletePost: async (parent, { id }) => {
+      try {
+        await Post.destroy({
+          where: { id },
+        });
+      } catch (e) {
+        throw new Error(e.message);
+      }
     },
   },
 };
