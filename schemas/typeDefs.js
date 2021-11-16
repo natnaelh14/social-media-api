@@ -155,6 +155,10 @@ const typeDefs = gql`
       status: Status!
     ):FriendRequest!
     deletePost(id:ID!):Post
+    addComment(
+      text: String!
+      user_id: ID!
+      post_id: ID!): Comment!
   }
 `;
 
