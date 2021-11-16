@@ -143,6 +143,10 @@ const typeDefs = gql`
       text: String!
       user_id: ID!
     ): Post!
+    followRequest(
+      sender_id: ID!
+      receiver_id: ID!
+    ):FriendRequest!
   }
 `;
 

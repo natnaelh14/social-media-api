@@ -197,6 +197,23 @@ const resolvers = {
       });
       return user;
     },
+    followRequest: async (parent, { sender_id, receiver_id }) => {
+      const verifyRequest = await FriendRequest.findOne({
+        where: {
+          sender_id,
+          receiver_id,
+        },
+      });
+      if (!verifyRequest) {
+        const request = await FriendRequest.create({
+          sender_id,
+          receiver_id,
+        });
+        return request;
+      } else if (verifyRequest) {
+        throw new Error("Friend Request has already been sent.")
+      }
+    },
   },
 };
 
