@@ -172,12 +172,9 @@ const resolvers = {
         country,
         status,
         isActive,
-        created_at,
-        updated_at,
       }
     ) => {
-      const user = await User.findOneAndUpdate(
-        { id },
+      return await User.update(
         {
           id,
           email,
@@ -191,11 +188,11 @@ const resolvers = {
           country,
           status,
           isActive,
-          created_at,
-          updated_at,
+        },
+        {
+          where: { id },
         }
       );
-      return user;
     },
     addPost: async (parent, { user_id, text }) => {
       const user = await Post.create({
