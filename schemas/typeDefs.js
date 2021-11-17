@@ -105,7 +105,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    userProfile(id: ID!): User!
+    userProfile(id: ID!): User
     posts(user_id: ID!): [Post!]
     followers(id: ID!): [User]
     comments(post_id: ID!): [Comment]
