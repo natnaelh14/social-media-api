@@ -174,7 +174,7 @@ const resolvers = {
         isActive,
       }
     ) => {
-      return await User.update(
+      const updateUser = await User.update(
         {
           id,
           email,
@@ -193,6 +193,7 @@ const resolvers = {
           where: { id },
         }
       );
+      return updateUser;
     },
     addPost: async (parent, { user_id, text }) => {
       const user = await Post.create({
