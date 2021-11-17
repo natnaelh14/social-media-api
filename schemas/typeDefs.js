@@ -137,8 +137,6 @@ const typeDefs = gql`
       country: String
       status: MoodStatus
       isActive: Boolean!
-      created_at: Date!
-      updated_at: Date!
     ): User!
     addPost(
       text: String!
