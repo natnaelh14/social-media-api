@@ -19,6 +19,10 @@ const resolvers = {
       });
       return user;
     },
+    usersList: async(parent, { handle }) => {
+      const users = await User.findAll({}).then((res) => res.filter(user => user.handle.toLowerCase().includes(handle.toLowerCase().trim()) ))
+      return users
+    },
     // POST RESOLVERS
     posts: async (parent, { user_id }) => {
       return await Post.findAll({

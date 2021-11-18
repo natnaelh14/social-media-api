@@ -106,6 +106,7 @@ const typeDefs = gql`
 
   type Query {
     userProfile(id: ID!): User
+    usersList(handle: String!): [User]
     posts(user_id: ID!): [Post!]
     followers(id: ID!): [User]
     comments(post_id: ID!): [Comment]
