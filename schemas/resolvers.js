@@ -19,9 +19,13 @@ const resolvers = {
       });
       return user;
     },
-    usersList: async(parent, { handle }) => {
-      const users = await User.findAll({}).then((res) => res.filter(user => user.handle.toLowerCase().includes(handle.toLowerCase().trim()) ))
-      return users
+    usersList: async (parent, { handle }) => {
+      const users = await User.findAll({}).then((res) =>
+        res.filter((user) =>
+          user.handle.toLowerCase().includes(handle.toLowerCase().trim())
+        )
+      );
+      return users;
     },
     // POST RESOLVERS
     posts: async (parent, { user_id }) => {
@@ -178,7 +182,7 @@ const resolvers = {
         isActive,
       }
     ) => {
-      const updateUser = await User.update(
+      const user = await User.update(
         {
           id,
           email,
@@ -195,9 +199,9 @@ const resolvers = {
         },
         {
           where: { id },
-        }
+        },
       );
-      return updateUser;
+      return user;
     },
     addPost: async (parent, { user_id, text }) => {
       const user = await Post.create({
