@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class Crypto extends Model {}
@@ -21,6 +21,7 @@ Crypto.init(
     },
     purchase_date: {
       type: DataTypes.DATE,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       allowNull: false,
     },
     user_id: {
