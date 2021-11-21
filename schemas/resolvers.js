@@ -182,7 +182,7 @@ const resolvers = {
         isActive,
       }
     ) => {
-      const user = await User.update(
+      const updateUser = await User.update(
         {
           id,
           email,
@@ -199,10 +199,11 @@ const resolvers = {
         },
         {
           where: { id },
-        },
+        }
       );
-      return user;
+      return updateUser;
     },
+
     addPost: async (parent, { user_id, text }) => {
       const user = await Post.create({
         user_id,
@@ -253,6 +254,13 @@ const resolvers = {
         user_id,
         post_id,
         text,
+      });
+    },
+    addCrypto: async (parent, { crypto_name, holding_amount, user_id }) => {
+      return await Crypto.create({
+        crypto_name,
+        holding_amount,
+        user_id,
       });
     },
   },

@@ -120,11 +120,7 @@ const typeDefs = gql`
     blockedFriendsList(id: ID!): [User!]
   }
   type Mutation {
-    addUserProfile(
-      id: ID!
-      email: String!
-      handle: String!
-    ): User!
+    addUserProfile(id: ID!, email: String!, handle: String!): User!
     updateUserProfile(
       id: ID!
       email: String!
@@ -139,25 +135,17 @@ const typeDefs = gql`
       status: MoodStatus
       isActive: Boolean!
     ): User!
-    addPost(
-      text: String!
-      user_id: ID!
-    ): Post!
-    followRequest(
-      sender_id: String!
-      receiver_id: String!
-    ):FriendRequest!
+    addPost(text: String!, user_id: ID!): Post!
+    followRequest(sender_id: String!, receiver_id: String!): FriendRequest!
     respondFollowRequest(
       id: ID!
       sender_id: String!
       receiver_id: String!
       status: Status!
-    ):FriendRequest!
-    deletePost(id:ID!):Post
-    addComment(
-      text: String!
-      user_id: ID!
-      post_id: ID!): Comment!
+    ): FriendRequest!
+    deletePost(id: ID!): Post
+    addComment(text: String!, user_id: ID!, post_id: ID!): Comment!
+    addCrypto(crypto_name: String!, holding_amount: Int!, user_id: ID!): Crypto!
   }
 `;
 
