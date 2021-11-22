@@ -87,7 +87,7 @@ const typeDefs = gql`
     id: ID!
     crypto_name: String!
     holding_amount: Int!
-    purchase_date: Date!
+    purchase_date: Date
     user_id: ID!
   }
 
@@ -146,6 +146,7 @@ const typeDefs = gql`
     deletePost(id: ID!): Post
     addComment(text: String!, user_id: ID!, post_id: ID!): Comment!
     addCrypto(crypto_name: String!, holding_amount: Int!, user_id: ID!): Crypto!
+    updateCrypto(id: ID!, crypto_name: String!, holding_amount: Int!, user_id: ID!): Crypto!
   }
 `;
 
