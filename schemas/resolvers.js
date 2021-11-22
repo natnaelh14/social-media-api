@@ -256,12 +256,27 @@ const resolvers = {
         text,
       });
     },
-    addCrypto: async (parent, { crypto_name, holding_amount, user_id }) => {
-      return await Crypto.create({
+    updateCrypto: async (
+      parent,
+      {
+        id,
+        user_id,
         crypto_name,
         holding_amount,
-        user_id,
-      });
+      }
+    ) => {
+      const updateCrypto = await Crypto.update(
+        {
+          id,
+          crypto_name,
+          holding_amount,
+          user_id
+        },
+        {
+          where: { id },
+        }
+      );
+      return updateCrypto;
     },
   },
 };

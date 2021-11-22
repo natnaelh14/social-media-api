@@ -22,7 +22,6 @@ Crypto.init(
     purchase_date: {
       type: DataTypes.DATE,
       defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      allowNull: false,
     },
     user_id: {
       type: DataTypes.STRING,
