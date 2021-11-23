@@ -9,6 +9,9 @@ const {
   Crypto,
   FriendRequest,
 } = require('../models');
+const Twitter = require('twitter');
+const needle = require('needle');
+const fetch = require('cross-fetch');
 
 const resolvers = {
   Query: {
@@ -155,6 +158,53 @@ const resolvers = {
       }
       return blockedFriendsList;
     },
+    // twitterSearch: async(parent, { keyword }) => {
+    //   const client = new Twitter({
+    //     consumer_key: process.env.api_key,
+    //     consumer_secret: process.env.api_key_secret,
+    //     access_token_key: process.env.access_token,
+    //     access_token_secret: process.env.access_token_secret,
+    //     bearer_token: process.env.bearer_token
+    //   });
+    //   client.get('statuses/user_timeline', {screen_name: keyword}, function(error, tweets, response) {
+    //     console.log(tweets);
+    //  });
+    // },
+    twitterSearch: async (parent, { keyword }) => {
+      const token = process.env.BEARER_TOKEN;
+      const endpointUrl = 'https://api.twitter.com/2/tweets/search/recent';
+      const params = {
+        query: keyword,
+        'tweet.fields': 'author_id',
+      };
+      const res = await needle('get', endpointUrl, params, {
+        headers: {
+          'User-Agent': 'v2RecentSearchJS',
+          authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.body) {
+        return res.body;
+      } else {
+        throw new Error('Unsuccessful request');
+      }
+    },
+    cryptoSearchAPI: async (parent, { name }) => {
+      await fetch(
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${name}`
+      )
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          const crypto = {
+            name: res[0].name,
+            current_price: res[0].current_price,
+            image: res[0].image,
+          };
+          console.log(crypto);
+        });
+    },
   },
   Mutation: {
     addUserProfile: async (parent, { id, email, handle }) => {
@@ -258,19 +308,14 @@ const resolvers = {
     },
     updateCrypto: async (
       parent,
-      {
-        id,
-        user_id,
-        crypto_name,
-        holding_amount,
-      }
+      { id, user_id, crypto_name, holding_amount }
     ) => {
       const updateCrypto = await Crypto.update(
         {
           id,
           crypto_name,
           holding_amount,
-          user_id
+          user_id,
         },
         {
           where: { id },

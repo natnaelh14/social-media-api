@@ -98,6 +98,13 @@ const typeDefs = gql`
     status: Status!
   }
 
+  type CryptoAPI {
+    name: String
+    current_price: String
+    image: String
+
+  }
+
   enum Status {
     PENDING
     CONFIRM
@@ -118,6 +125,8 @@ const typeDefs = gql`
     friendRequests(id: ID!): [User!]
     friendsList(id: ID!): [User!]
     blockedFriendsList(id: ID!): [User!]
+    twitterSearch(keyword: String!):String
+    cryptoSearchAPI(name: String): CryptoAPI
   }
   type Mutation {
     addUserProfile(id: ID!, email: String!, handle: String!): User!
