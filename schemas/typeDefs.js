@@ -124,7 +124,7 @@ const typeDefs = gql`
     friendRequests(id: ID!): [User!]
     friendsList(id: ID!): [User!]
     blockedFriendsList(id: ID!): [User!]
-    twitterSearch(keyword: String!):String
+    twitterSearch(keyword: String!):[String]
     cryptoSearchAPI(name: String): CryptoAPI
   }
   type Mutation {

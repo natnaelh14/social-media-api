@@ -160,7 +160,8 @@ const resolvers = {
       return blockedFriendsList;
     },
     twitterSearch: async (parent, { keyword }) => {
-      const token = '';
+      const token = process.env.BEARER_TOKEN;
+      console.log('qqqwwqwqwq', token)
       const endpointUrl = 'https://api.twitter.com/2/tweets/search/recent';
 
       const params = {
@@ -174,26 +175,26 @@ const resolvers = {
         },
       });
       if (res.body) {
-        console.log(res.body);
+        return res.body.data.map(tweet => tweet.text)
       } else {
         throw new Error('Unsuccessful request');
       }
     },
     cryptoSearchAPI: async (parent, { name }) => {
-      await fetch(
+     const cryptoResult = await fetch(
         `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${name}`
       )
         .then((res) => {
           return res.json();
         })
         .then((res) => {
-          const crypto = {
+          return {
             name: res[0].name,
             current_price: res[0].current_price,
             image: res[0].image,
           };
-          return crypto;
         });
+        return cryptoResult
     },
   },
   Mutation: {
