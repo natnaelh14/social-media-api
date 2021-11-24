@@ -158,37 +158,41 @@ const resolvers = {
       }
       return blockedFriendsList;
     },
-    // twitterSearch: async(parent, { keyword }) => {
-    //   const client = new Twitter({
-    //     consumer_key: process.env.api_key,
-    //     consumer_secret: process.env.api_key_secret,
-    //     access_token_key: process.env.access_token,
-    //     access_token_secret: process.env.access_token_secret,
-    //     bearer_token: process.env.bearer_token
-    //   });
-    //   client.get('statuses/user_timeline', {screen_name: keyword}, function(error, tweets, response) {
-    //     console.log(tweets);
-    //  });
-    // },
     twitterSearch: async (parent, { keyword }) => {
-      const token = process.env.BEARER_TOKEN;
-      const endpointUrl = 'https://api.twitter.com/2/tweets/search/recent';
-      const params = {
-        query: keyword,
-        'tweet.fields': 'author_id',
-      };
-      const res = await needle('get', endpointUrl, params, {
-        headers: {
-          'User-Agent': 'v2RecentSearchJS',
-          authorization: `Bearer ${token}`,
-        },
+      const client = new Twitter({
+        consumer_key: process.env.api_key,
+        consumer_secret: process.env.api_key_secret,
+        access_token_key: process.env.access_token,
+        access_token_secret: process.env.access_token_secret,
+        bearer_token: process.env.bearer_token,
       });
-      if (res.body) {
-        return res.body;
-      } else {
-        throw new Error('Unsuccessful request');
-      }
+      client.get(
+        'statuses/user_timeline',
+        { screen_name: keyword },
+        function (error, tweets, response) {
+          console.log(tweets);
+        }
+      );
     },
+    // twitterSearch: async (parent, { keyword }) => {
+    //   const token = process.env.BEARER_TOKEN;
+    //   const endpointUrl = 'https://api.twitter.com/2/tweets/search/recent';
+    //   const params = {
+    //     query: keyword,
+    //     'tweet.fields': 'author_id',
+    //   };
+    //   const res = await needle('get', endpointUrl, params, {
+    //     headers: {
+    //       'User-Agent': 'v2RecentSearchJS',
+    //       authorization: `Bearer ${token}`,
+    //     },
+    //   });
+    //   if (res.body) {
+    //     console.log(res.body);
+    //   } else {
+    //     throw new Error('Unsuccessful request');
+    //   }
+    // },
     cryptoSearchAPI: async (parent, { name }) => {
       await fetch(
         `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${name}`
@@ -202,7 +206,7 @@ const resolvers = {
             current_price: res[0].current_price,
             image: res[0].image,
           };
-          console.log(crypto);
+          return crypto;
         });
     },
   },
@@ -232,7 +236,8 @@ const resolvers = {
         isActive,
       }
     ) => {
-      const updateUser = await User.update(
+      const userData = await User.findOne({ id })
+      return await userData.update(
         {
           id,
           email,
@@ -247,11 +252,7 @@ const resolvers = {
           status,
           isActive,
         },
-        {
-          where: { id },
-        }
       );
-      return updateUser;
     },
 
     addPost: async (parent, { user_id, text }) => {
@@ -296,7 +297,7 @@ const resolvers = {
           where: { id },
         });
       } catch (e) {
-        throw new Error(e.message);
+        throw new Error('Unable to delete post');
       }
     },
     addComment: async (parent, { user_id, post_id, text }) => {
@@ -306,22 +307,57 @@ const resolvers = {
         text,
       });
     },
-    updateCrypto: async (
-      parent,
-      { id, user_id, crypto_name, holding_amount }
-    ) => {
-      const updateCrypto = await Crypto.update(
-        {
-          id,
-          crypto_name,
-          holding_amount,
-          user_id,
-        },
-        {
-          where: { id },
+    //ADD CRYPTOCURRENCY
+    addCrypto: async (parent, { crypto_name, holding_amount, user_id }) => {
+      try {
+        const searchCrypto = await Crypto.findOne({
+          where: { user_id, crypto_name: crypto_name.toLowerCase() },
+        });
+        if (searchCrypto) {
+          return searchCrypto.update({
+            ...searchCrypto,
+            holding_amount: searchCrypto.holding_amount + holding_amount,
+          });
+        } else {
+          await fetch(
+            `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${crypto_name}`
+          )
+            .then((res) => {
+              return res.json();
+            })
+            .then((res) => {
+              console.log('test', res);
+              if (res.body) {
+                return Crypto.create({
+                  crypto_name: crypto_name.toLowerCase(),
+                  holding_amount,
+                  user_id,
+                });
+              } else {
+                throw new Error('Unable to find CryptoCurrency');
+              }
+            });
         }
-      );
-      return updateCrypto;
+      } catch (e) {
+        throw new Error('Unable to add CryptoCurrency');
+      }
+    },
+    updateCrypto: async (parent, { id, holding_amount }) => {
+      try {
+      const searchCrypto = await Crypto.findOne({
+        where: { id },
+      });
+      if (searchCrypto) {
+        return await searchCrypto.update({
+          ...searchCrypto,
+          holding_amount,
+        });
+      } else {
+        throw new Error('Unable to find CryptoCurrency')
+      }
+      } catch(e) {
+        throw new Error('Unable to update CryptoCurrency')
+      }
     },
   },
 };

@@ -102,7 +102,6 @@ const typeDefs = gql`
     name: String
     current_price: String
     image: String
-
   }
 
   enum Status {
@@ -154,8 +153,8 @@ const typeDefs = gql`
     ): FriendRequest!
     deletePost(id: ID!): Post
     addComment(text: String!, user_id: ID!, post_id: ID!): Comment!
-    addCrypto(crypto_name: String!, holding_amount: Int!, user_id: ID!): Crypto!
-    updateCrypto(id: ID!, crypto_name: String!, holding_amount: Int!, user_id: ID!): Crypto!
+    addCrypto(crypto_name: String!, holding_amount: Int!, user_id: ID!): Crypto
+    updateCrypto(id: ID! holding_amount: Int!): Crypto
   }
 `;
 
