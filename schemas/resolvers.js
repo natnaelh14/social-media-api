@@ -12,6 +12,7 @@ const {
 const Twitter = require('twitter');
 const needle = require('needle');
 const fetch = require('cross-fetch');
+require('dotenv').config();
 
 const resolvers = {
   Query: {
@@ -159,40 +160,25 @@ const resolvers = {
       return blockedFriendsList;
     },
     twitterSearch: async (parent, { keyword }) => {
-      const client = new Twitter({
-        consumer_key: process.env.api_key,
-        consumer_secret: process.env.api_key_secret,
-        access_token_key: process.env.access_token,
-        access_token_secret: process.env.access_token_secret,
-        bearer_token: process.env.bearer_token,
+      const token = '';
+      const endpointUrl = 'https://api.twitter.com/2/tweets/search/recent';
+
+      const params = {
+        query: keyword,
+        'tweet.fields': 'author_id',
+      };
+      const res = await needle('get', endpointUrl, params, {
+        headers: {
+          'User-Agent': 'NatnaelH',
+          authorization: `Bearer ${token}`,
+        },
       });
-      client.get(
-        'statuses/user_timeline',
-        { screen_name: keyword },
-        function (error, tweets, response) {
-          console.log(tweets);
-        }
-      );
+      if (res.body) {
+        console.log(res.body);
+      } else {
+        throw new Error('Unsuccessful request');
+      }
     },
-    // twitterSearch: async (parent, { keyword }) => {
-    //   const token = process.env.BEARER_TOKEN;
-    //   const endpointUrl = 'https://api.twitter.com/2/tweets/search/recent';
-    //   const params = {
-    //     query: keyword,
-    //     'tweet.fields': 'author_id',
-    //   };
-    //   const res = await needle('get', endpointUrl, params, {
-    //     headers: {
-    //       'User-Agent': 'v2RecentSearchJS',
-    //       authorization: `Bearer ${token}`,
-    //     },
-    //   });
-    //   if (res.body) {
-    //     console.log(res.body);
-    //   } else {
-    //     throw new Error('Unsuccessful request');
-    //   }
-    // },
     cryptoSearchAPI: async (parent, { name }) => {
       await fetch(
         `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${name}`
@@ -236,23 +222,21 @@ const resolvers = {
         isActive,
       }
     ) => {
-      const userData = await User.findOne({ id })
-      return await userData.update(
-        {
-          id,
-          email,
-          handle,
-          avatar,
-          gender,
-          birth_date,
-          bio,
-          city,
-          state,
-          country,
-          status,
-          isActive,
-        },
-      );
+      const userData = await User.findOne({ id });
+      return await userData.update({
+        id,
+        email,
+        handle,
+        avatar,
+        gender,
+        birth_date,
+        bio,
+        city,
+        state,
+        country,
+        status,
+        isActive,
+      });
     },
 
     addPost: async (parent, { user_id, text }) => {
@@ -344,19 +328,19 @@ const resolvers = {
     },
     updateCrypto: async (parent, { id, holding_amount }) => {
       try {
-      const searchCrypto = await Crypto.findOne({
-        where: { id },
-      });
-      if (searchCrypto) {
-        return await searchCrypto.update({
-          ...searchCrypto,
-          holding_amount,
+        const searchCrypto = await Crypto.findOne({
+          where: { id },
         });
-      } else {
-        throw new Error('Unable to find CryptoCurrency')
-      }
-      } catch(e) {
-        throw new Error('Unable to update CryptoCurrency')
+        if (searchCrypto) {
+          return await searchCrypto.update({
+            ...searchCrypto,
+            holding_amount,
+          });
+        } else {
+          throw new Error('Unable to find CryptoCurrency');
+        }
+      } catch (e) {
+        throw new Error('Unable to update CryptoCurrency');
       }
     },
   },
