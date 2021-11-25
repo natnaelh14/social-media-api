@@ -116,6 +116,7 @@ const typeDefs = gql`
     usersList(handle: String!): [User]
     posts(user_id: ID!): [Post!]
     followers(id: ID!): [User]
+    followings(id: ID!): [User]
     comments(post_id: ID!): [Comment]
     messages(receiver_id: ID!): [Message]
     reactions(post_id: ID, comment_id: ID): [Reaction]

@@ -53,6 +53,23 @@ const resolvers = {
       }
       return followersList;
     },
+    //FOLLOWING
+    followings: async (parent, { id }) => {
+      const followings = await Follow.findAll({
+        where: { follower_user_id: id },
+      });
+      let followingsList = [];
+      for (let i = 0; i < followings.length; i++) {
+        const follow = await User.findOne({
+          where: { id: followings[i].followed_user_id },
+        });
+        if (follow) {
+          followingsList.push(follow);
+        }
+      }
+      return followingsList;
+    },
+
     //COMMENTS
     comments: async (parent, { post_id }) => {
       const comments = await Comment.findAll({
