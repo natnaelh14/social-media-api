@@ -161,7 +161,7 @@ const resolvers = {
     },
     twitterSearch: async (parent, { keyword }) => {
       const token = process.env.BEARER_TOKEN;
-      console.log('qqqwwqwqwq', token)
+      console.log('qqqwwqwqwq', token);
       const endpointUrl = 'https://api.twitter.com/2/tweets/search/recent';
 
       const params = {
@@ -175,13 +175,13 @@ const resolvers = {
         },
       });
       if (res.body) {
-        return res.body.data.map(tweet => tweet.text)
+        return res.body.data.map((tweet) => tweet.text);
       } else {
         throw new Error('Unsuccessful request');
       }
     },
     cryptoSearchAPI: async (parent, { name }) => {
-     const cryptoResult = await fetch(
+      const cryptoResult = await fetch(
         `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${name}`
       )
         .then((res) => {
@@ -194,7 +194,7 @@ const resolvers = {
             image: res[0].image,
           };
         });
-        return cryptoResult
+      return cryptoResult;
     },
   },
   Mutation: {
@@ -266,15 +266,38 @@ const resolvers = {
     },
     respondFollowRequest: async (
       parent,
-      { id, status, sender_id, receiver_id }
+      { status, sender_id, receiver_id }
     ) => {
-      const response = await FriendRequest.update(
-        { id, status, sender_id, receiver_id },
-        {
-          where: { id },
+      try {
+        const searchRequest = await FriendRequest.findOne({
+          where: { sender_id, receiver_id },
+        });
+        if (searchRequest) {
+          if (status === 'CONFIRMED') {
+            await Follow.create({
+              follower_user_id: sender_id,
+              followed_user_id: receiver_id,
+            });
+            const response = await searchRequest.update({
+              ...searchRequest,
+              status,
+            });
+            return response;
+          } else if(status === 'REJECTED') {
+             return await searchRequest.destroy({});
+          } else {
+            const response = await searchRequest.update({
+              ...searchRequest,
+              status,
+            });
+            return response;
+          }
+        } else {
+          throw new Error ('Unable to find Friend Request')
         }
-      );
-      return response;
+      } catch (e) {
+        throw new Error ('Unable to update Friend Request')
+      }
     },
     deletePost: async (parent, { id }) => {
       try {
