@@ -106,8 +106,9 @@ const typeDefs = gql`
 
   enum Status {
     PENDING
-    CONFIRM
+    CONFIRMED
     BLOCKED
+    REJECTED
   }
 
   type Query {
@@ -146,7 +147,6 @@ const typeDefs = gql`
     addPost(text: String!, user_id: ID!): Post!
     followRequest(sender_id: String!, receiver_id: String!): FriendRequest!
     respondFollowRequest(
-      id: ID!
       sender_id: String!
       receiver_id: String!
       status: Status!
