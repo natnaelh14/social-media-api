@@ -384,6 +384,34 @@ const resolvers = {
         throw new Error('Unable to update CryptoCurrency');
       }
     },
+    removeFollower: async(parent, { follower_user_id, followed_user_id }) => {
+      try {
+        const findFollower = await Follow.findOne({
+          where: { follower_user_id, followed_user_id },
+        });
+        if (findFollower) {
+          await findFollower.destroy({})
+        } else {
+          throw new Error ('Unable to find Follower')
+        }
+      } catch (e) {
+        throw new Error('Unable to remove Follower')
+      }
+    },
+    removeFollowing: async(parent, { follower_user_id, followed_user_id }) => {
+      try {
+        const findFollowing = await Follow.findOne({
+          where: { follower_user_id, followed_user_id },
+        });
+        if (findFollowing) {
+          await findFollowing.destroy({})
+        } else {
+          throw new Error ('Unable to find Follower')
+        }
+      } catch (e) {
+        throw new Error('Unable to remove Follower')
+      }
+    }
   },
 };
 

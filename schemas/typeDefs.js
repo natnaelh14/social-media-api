@@ -152,6 +152,8 @@ const typeDefs = gql`
       receiver_id: String!
       status: Status!
     ): FriendRequest!
+    removeFollower(follower_user_id: String!, followed_user_id: String!):Follow
+    removeFollowing(follower_user_id: String!, followed_user_id: String!):Follow
     deletePost(id: ID!): Post
     addComment(text: String!, user_id: ID!, post_id: ID!): Comment!
     addCrypto(crypto_name: String!, holding_amount: Int!, user_id: ID!): Crypto
