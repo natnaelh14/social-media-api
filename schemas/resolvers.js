@@ -13,6 +13,7 @@ const Twitter = require('twitter');
 const needle = require('needle');
 const fetch = require('cross-fetch');
 require('dotenv').config();
+const { Op } = require("sequelize");
 
 const resolvers = {
   Query: {
@@ -78,9 +79,9 @@ const resolvers = {
       return comments;
     },
     //MESSAGES
-    messages: async (parent, { receiver_id }) => {
+    messages: async (parent, { receiver_id, sender_id }) => {
       const messages = await Message.findAll({
-        where: { receiver_id },
+        where: { [Op.or]: [{ receiver_id }, { sender_id }],  },
       });
       return messages;
     },
