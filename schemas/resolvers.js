@@ -79,11 +79,27 @@ const resolvers = {
       return comments;
     },
     //MESSAGES
-    messages: async (parent, { receiver_id, sender_id }) => {
+    messengers: async (parent, { id }) => {
       const messages = await Message.findAll({
-        where: { [Op.or]: [{ receiver_id }, { sender_id }],  },
+        where: { [Op.or]: [{ receiver_id: id }, { sender_id: id }],  },
       });
-      return messages;
+      const MessageUserList =[]
+      for (let i = 0; i < messages.length; i++) {
+        if (messages[i].sender_id === id) {
+          if(!(MessageUserList.includes(messages[i].receiver_id)))
+          MessageUserList.push(messages[i].receiver_id)
+        } else if (!(MessageUserList.includes(messages[i].sender_id))) {
+          MessageUserList.push(messages[i].sender_id)
+        }
+      }
+      const Messengers = [];
+      for (let i = 0; i < MessageUserList.length; i++) {
+        const user = await User.findOne({
+          where: { id: MessageUserList[i]}
+        })
+        Messengers.push(user)
+      }
+      return Messengers
     },
     //REACTIONS
     reactions: async (parent, { post_id, comment_id }) => {

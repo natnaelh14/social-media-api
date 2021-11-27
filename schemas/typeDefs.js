@@ -118,7 +118,7 @@ const typeDefs = gql`
     followers(id: ID!): [User]
     followings(id: ID!): [User]
     comments(post_id: ID!): [Comment]
-    messages(receiver_id: String!, sender_id: String!): [Message]
+    messengers(id: String!): [User]
     reactions(post_id: ID, comment_id: ID): [Reaction]
     postsByHashtag(hashtag_name: String!): [Post!]
     cryptoByUserId(user_id: ID!): [Crypto!]
