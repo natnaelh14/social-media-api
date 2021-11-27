@@ -178,7 +178,6 @@ const resolvers = {
     },
     twitterSearch: async (parent, { keyword }) => {
       const token = process.env.BEARER_TOKEN;
-      console.log('qqqwwqwqwq', token);
       const endpointUrl = 'https://api.twitter.com/2/tweets/search/recent';
 
       const params = {
@@ -410,6 +409,13 @@ const resolvers = {
         }
       } catch (e) {
         throw new Error('Unable to remove Follower')
+      }
+    },
+    addMessage: async(parent, { text, sender_id, receiver_id}) => {
+      try {
+        return await Message.create({ text, sender_id, receiver_id })
+      } catch (e) {
+        throw new Error('Unable to Create a Message')
       }
     }
   },
