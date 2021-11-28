@@ -118,7 +118,8 @@ const typeDefs = gql`
     followers(id: ID!): [User]
     followings(id: ID!): [User]
     comments(post_id: ID!): [Comment]
-    messages(receiver_id: ID!): [Message]
+    messengers(id: ID!): [User]
+    messages(sender_id: String!, receiver_id: String!): [Message]
     reactions(post_id: ID, comment_id: ID): [Reaction]
     postsByHashtag(hashtag_name: String!): [Post!]
     cryptoByUserId(user_id: ID!): [Crypto!]
@@ -158,6 +159,7 @@ const typeDefs = gql`
     addComment(text: String!, user_id: ID!, post_id: ID!): Comment!
     addCrypto(crypto_name: String!, holding_amount: Int!, user_id: ID!): Crypto
     updateCrypto(id: ID! holding_amount: Int!): Crypto
+    addMessage(text: String!, sender_id: String!, receiver_id: String!): Message
   }
 `;
 

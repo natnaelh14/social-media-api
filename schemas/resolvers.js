@@ -13,6 +13,7 @@ const Twitter = require('twitter');
 const needle = require('needle');
 const fetch = require('cross-fetch');
 require('dotenv').config();
+const { Op } = require("sequelize");
 
 const resolvers = {
   Query: {
@@ -78,11 +79,38 @@ const resolvers = {
       return comments;
     },
     //MESSAGES
-    messages: async (parent, { receiver_id }) => {
+    messengers: async (parent, { id }) => {
       const messages = await Message.findAll({
-        where: { receiver_id },
+        where: { [Op.or]: [{ receiver_id: id }, { sender_id: id }],  },
       });
-      return messages;
+      const MessageUserList =[]
+      for (let i = 0; i < messages.length; i++) {
+        if (messages[i].sender_id === id) {
+          if(!(MessageUserList.includes(messages[i].receiver_id)))
+          MessageUserList.push(messages[i].receiver_id)
+        } else if (!(MessageUserList.includes(messages[i].sender_id))) {
+          MessageUserList.push(messages[i].sender_id)
+        }
+      }
+      const Messengers = [];
+      for (let i = 0; i < MessageUserList.length; i++) {
+        const user = await User.findOne({
+          where: { id: MessageUserList[i]}
+        })
+        Messengers.push(user)
+      }
+      return Messengers
+    },
+    messages: async(parent, { sender_id, receiver_id }) => {
+      try {
+        return await Message.findAll({
+          where: {
+            [Op.or]: [{ sender_id, receiver_id }, { sender_id: receiver_id, receiver_id: sender_id }],             // (a = 5) OR (b = 6)
+          }
+        })
+      } catch (err) {
+        throw new Error ('Unable to Find Messages')
+      }
     },
     //REACTIONS
     reactions: async (parent, { post_id, comment_id }) => {
@@ -178,7 +206,6 @@ const resolvers = {
     },
     twitterSearch: async (parent, { keyword }) => {
       const token = process.env.BEARER_TOKEN;
-      console.log('qqqwwqwqwq', token);
       const endpointUrl = 'https://api.twitter.com/2/tweets/search/recent';
 
       const params = {
@@ -410,6 +437,13 @@ const resolvers = {
         }
       } catch (e) {
         throw new Error('Unable to remove Follower')
+      }
+    },
+    addMessage: async(parent, { text, sender_id, receiver_id}) => {
+      try {
+        return await Message.create({ text, sender_id, receiver_id })
+      } catch (e) {
+        throw new Error('Unable to Create a Message')
       }
     }
   },
