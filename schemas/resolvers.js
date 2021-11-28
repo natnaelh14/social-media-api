@@ -101,6 +101,17 @@ const resolvers = {
       }
       return Messengers
     },
+    messages: async(parent, { sender_id, receiver_id }) => {
+      try {
+        return await Message.findAll({
+          where: {
+            [Op.or]: [{ sender_id, receiver_id }, { sender_id: receiver_id, receiver_id: sender_id }],             // (a = 5) OR (b = 6)
+          }
+        })
+      } catch (err) {
+        throw new Error ('Unable to Find Messages')
+      }
+    },
     //REACTIONS
     reactions: async (parent, { post_id, comment_id }) => {
       if (post_id) {
