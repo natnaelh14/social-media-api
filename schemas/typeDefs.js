@@ -121,6 +121,9 @@ const typeDefs = gql`
     messengers(id: ID!): [User]
     messages(sender_id: String!, receiver_id: String!): [Message]
     reactions(post_id: ID, comment_id: ID): [Reaction]
+    reactionsByUser(user_id: ID!): [Reaction]
+    reactionsByPost(post_id: ID!): [Reaction]
+    reactionsByComment(comment_id: ID!): [Reaction]
     postsByHashtag(hashtag_name: String!): [Post!]
     cryptoByUserId(user_id: ID!): [Crypto!]
     friendRequest(receiver_id: String!, sender_id: String!): FriendRequest

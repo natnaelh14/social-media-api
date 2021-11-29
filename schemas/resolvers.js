@@ -129,6 +129,33 @@ const resolvers = {
         return reactions;
       }
     },
+    reactionsByUser: async (parent, { user_id }) => {
+      try {
+        return await Reaction.findAll ({
+          where: { user_id }
+        })
+      } catch (err) {
+        throw new Error('Unable to find reactions by user')
+      }
+    },
+    reactionsByPost: async (parent, { post_id }) => {
+      try {
+        return await Reaction.findAll ({
+          where: { post_id }
+        })
+      } catch (err) {
+        throw new Error('Unable to find Reactions by Post')
+      }
+    },
+    reactionsByComment: async (parent, { comment_id }) => {
+      try {
+        return await Reaction.findAll ({
+          where: { comment_id }
+        })
+      } catch (err) {
+        throw new Error('Unable to find Reactions by Comment')
+      }
+    },
     //HASHTAGS
     postsByHashtag: async (parent, { hashtag_name }) => {
       const postIds = await Hashtag.findAll({
