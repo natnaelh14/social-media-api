@@ -116,44 +116,53 @@ const resolvers = {
       }
     },
     //REACTIONS
-    reactions: async (parent, { post_id, comment_id }) => {
-      if (post_id) {
-        const reactions = await Reaction.findAll({
-          where: { post_id },
+    // reactions: async (parent, { post_id, comment_id }) => {
+    //   if (post_id) {
+    //     const reactions = await Reaction.findAll({
+    //       where: { post_id },
+    //     });
+    //     return reactions;
+    //   } else if (comment_id) {
+    //     const reactions = await Reaction.findAll({
+    //       where: { comment_id },
+    //     });
+    //     return reactions;
+    //   }
+    // },
+    reactionsByUserAndPost: async (parent, { user_id, post_id }) => {
+      try {
+        return await Reaction.findOne({
+          where: { [Op.and]: [{ user_id }, { post_id }] },
         });
-        return reactions;
-      } else if (comment_id) {
-        const reactions = await Reaction.findAll({
-          where: { comment_id },
+      } catch (err) {
+        throw new Error('Unable to find reactions by user and post');
+      }
+    },
+    reactionsByUserAndComment: async (parent, { user_id, comment_id }) => {
+      try {
+        return await Reaction.findOne({
+          where: { [Op.and]: [{ user_id }, { comment_id }] },
         });
-        return reactions;
+      } catch (err) {
+        throw new Error('Unable to find reactions by user and comment');
       }
     },
-    reactionsByUser: async (parent, { user_id }) => {
+    reactionsByPost: async (parent, { reaction_type, post_id }) => {
       try {
-        return await Reaction.findAll ({
-          where: { user_id }
-        })
+        return await Reaction.findAll({
+          where: { [Op.and]: [{ reaction_type }, { post_id }] },
+        });
       } catch (err) {
-        throw new Error('Unable to find reactions by user')
+        throw new Error('Unable to find Reactions by Post');
       }
     },
-    reactionsByPost: async (parent, { post_id }) => {
+    reactionsByComment: async (parent, { reaction_type, comment_id }) => {
       try {
-        return await Reaction.findAll ({
-          where: { post_id }
-        })
+        return await Reaction.findAll({
+          where: { [Op.and]: [{ reaction_type }, { comment_id }] },
+        });
       } catch (err) {
-        throw new Error('Unable to find Reactions by Post')
-      }
-    },
-    reactionsByComment: async (parent, { comment_id }) => {
-      try {
-        return await Reaction.findAll ({
-          where: { comment_id }
-        })
-      } catch (err) {
-        throw new Error('Unable to find Reactions by Comment')
+        throw new Error('Unable to find Reactions by Comment');
       }
     },
     //HASHTAGS
@@ -393,11 +402,11 @@ const resolvers = {
     // DELETE COMMENT
     deleteComment: async (parent, { id }) => {
       try {
-         await Comment.destroy({
+        await Comment.destroy({
           where: { id },
         });
       } catch (e) {
-        throw new Error ('Unable to delete Comment')
+        throw new Error('Unable to delete Comment');
       }
     },
     //ADD CRYPTOCURRENCY
@@ -454,13 +463,13 @@ const resolvers = {
         throw new Error('Unable to update CryptoCurrency');
       }
     },
-    deleteCrypto: async(parent, { id }) => {
+    deleteCrypto: async (parent, { id }) => {
       try {
-         await Crypto.destroy({
+        await Crypto.destroy({
           where: { id },
         });
       } catch (e) {
-        throw new Error ('Unable to delete CryptoCurrency')
+        throw new Error('Unable to delete CryptoCurrency');
       }
     },
     removeFollower: async (parent, { follower_user_id, followed_user_id }) => {
@@ -500,17 +509,38 @@ const resolvers = {
     },
     addReactionOnPost: async (parent, { reaction_type, user_id, post_id }) => {
       try {
-        return await Reaction.create({ reaction_type, user_id, post_id })
+        const findReaction = await Reaction.findOne({
+          where: { [Op.and]: [{ user_id }, { post_id }] },
+        });
+        if (findReaction) {
+          return await findReaction.update({
+            ...findReaction,
+            reaction_type,
+          });
+        } else {
+          return await Reaction.create({ reaction_type, user_id, post_id });
+        }
       } catch (e) {
-        return e
-        // throw new Error('Unable to add Reaction on a Post')
+        throw new Error('Unable to add Reaction on a Post');
       }
     },
-    addReactionOnComment: async (parent, { reaction_type, user_id, comment_id }) => {
+    addReactionOnComment: async (
+      parent,
+      { reaction_type, user_id, comment_id }
+    ) => {
       try {
-        return await Reaction.create({ reaction_type, user_id, comment_id })
+        return await Reaction.create({ reaction_type, user_id, comment_id });
       } catch (e) {
-        throw new Error('Unable to add Reaction on a Comment')
+        throw new Error('Unable to add Reaction on a Comment');
+      }
+    },
+    deleteReactionOnPost: async (parent, { user_id, post_id }) => {
+      try {
+        await Reaction.destroy({
+          where: { [Op.and]: [{ user_id }, { post_id }] },
+        });
+      } catch (e) {
+        throw new Error('Unable to delete post reaction');
       }
     },
   },
