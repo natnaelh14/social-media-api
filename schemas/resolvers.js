@@ -471,6 +471,21 @@ const resolvers = {
         throw new Error('Unable to Create a Message');
       }
     },
+    addReactionOnPost: async (parent, { reaction_type, user_id, post_id }) => {
+      try {
+        return await Reaction.create({ reaction_type, user_id, post_id })
+      } catch (e) {
+        return e
+        // throw new Error('Unable to add Reaction on a Post')
+      }
+    },
+    addReactionOnComment: async (parent, { reaction_type, user_id, comment_id }) => {
+      try {
+        return await Reaction.create({ reaction_type, user_id, comment_id })
+      } catch (e) {
+        throw new Error('Unable to add Reaction on a Comment')
+      }
+    },
   },
 };
 
