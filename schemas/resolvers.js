@@ -416,6 +416,15 @@ const resolvers = {
         throw new Error('Unable to update CryptoCurrency');
       }
     },
+    deleteCrypto: async(parent, { id }) => {
+      try {
+        await Crypto.destroy({
+          where: { id },
+        });
+      } catch (e) {
+        throw new Error ('Unable to delete CryptoCurrency')
+      }
+    },
     removeFollower: async (parent, { follower_user_id, followed_user_id }) => {
       try {
         const findFollower = await Follow.findOne({

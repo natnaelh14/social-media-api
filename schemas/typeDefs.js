@@ -160,6 +160,7 @@ const typeDefs = gql`
     addComment(text: String!, user_id: ID!, post_id: ID!): Comment!
     addCrypto(crypto_name: String!, holding_amount: Int!, user_id: ID!): Crypto
     updateCrypto(id: ID! holding_amount: Int!): Crypto
+    deleteCrypto(id: ID!): Crypto
     addMessage(text: String!, sender_id: String!, receiver_id: String!): Message
   }
 `;
