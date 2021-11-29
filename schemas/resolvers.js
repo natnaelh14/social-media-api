@@ -355,12 +355,23 @@ const resolvers = {
         throw new Error('Unable to delete post');
       }
     },
+    // ADD COMMENT
     addComment: async (parent, { user_id, post_id, text }) => {
       return await Comment.create({
         user_id,
         post_id,
         text,
       });
+    },
+    // DELETE COMMENT
+    deleteComment: async (parent, { id }) => {
+      try {
+         await Comment.destroy({
+          where: { id },
+        });
+      } catch (e) {
+        throw new Error ('Unable to delete Comment')
+      }
     },
     //ADD CRYPTOCURRENCY
     addCrypto: async (parent, { crypto_name, holding_amount, user_id }) => {
@@ -418,7 +429,7 @@ const resolvers = {
     },
     deleteCrypto: async(parent, { id }) => {
       try {
-        await Crypto.destroy({
+         await Crypto.destroy({
           where: { id },
         });
       } catch (e) {
