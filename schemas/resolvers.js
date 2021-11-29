@@ -13,7 +13,7 @@ const Twitter = require('twitter');
 const needle = require('needle');
 const fetch = require('cross-fetch');
 require('dotenv').config();
-const { Op } = require("sequelize");
+const { Op } = require('sequelize');
 
 const resolvers = {
   Query: {
@@ -81,35 +81,38 @@ const resolvers = {
     //MESSAGES
     messengers: async (parent, { id }) => {
       const messages = await Message.findAll({
-        where: { [Op.or]: [{ receiver_id: id }, { sender_id: id }],  },
+        where: { [Op.or]: [{ receiver_id: id }, { sender_id: id }] },
       });
-      const MessageUserList =[]
+      const MessageUserList = [];
       for (let i = 0; i < messages.length; i++) {
         if (messages[i].sender_id === id) {
-          if(!(MessageUserList.includes(messages[i].receiver_id)))
-          MessageUserList.push(messages[i].receiver_id)
-        } else if (!(MessageUserList.includes(messages[i].sender_id))) {
-          MessageUserList.push(messages[i].sender_id)
+          if (!MessageUserList.includes(messages[i].receiver_id))
+            MessageUserList.push(messages[i].receiver_id);
+        } else if (!MessageUserList.includes(messages[i].sender_id)) {
+          MessageUserList.push(messages[i].sender_id);
         }
       }
       const Messengers = [];
       for (let i = 0; i < MessageUserList.length; i++) {
         const user = await User.findOne({
-          where: { id: MessageUserList[i]}
-        })
-        Messengers.push(user)
+          where: { id: MessageUserList[i] },
+        });
+        Messengers.push(user);
       }
-      return Messengers
+      return Messengers;
     },
-    messages: async(parent, { sender_id, receiver_id }) => {
+    messages: async (parent, { sender_id, receiver_id }) => {
       try {
         return await Message.findAll({
           where: {
-            [Op.or]: [{ sender_id, receiver_id }, { sender_id: receiver_id, receiver_id: sender_id }],             // (a = 5) OR (b = 6)
-          }
-        })
+            [Op.or]: [
+              { sender_id, receiver_id },
+              { sender_id: receiver_id, receiver_id: sender_id },
+            ], // (a = 5) OR (b = 6)
+          },
+        });
       } catch (err) {
-        throw new Error ('Unable to Find Messages')
+        throw new Error('Unable to Find Messages');
       }
     },
     //REACTIONS
@@ -327,8 +330,8 @@ const resolvers = {
               status,
             });
             return response;
-          } else if(status === 'REJECTED') {
-             return await searchRequest.destroy({});
+          } else if (status === 'REJECTED') {
+            return await searchRequest.destroy({});
           } else {
             const response = await searchRequest.update({
               ...searchRequest,
@@ -337,10 +340,10 @@ const resolvers = {
             return response;
           }
         } else {
-          throw new Error ('Unable to find Friend Request')
+          throw new Error('Unable to find Friend Request');
         }
       } catch (e) {
-        throw new Error ('Unable to update Friend Request')
+        throw new Error('Unable to update Friend Request');
       }
     },
     deletePost: async (parent, { id }) => {
@@ -372,22 +375,24 @@ const resolvers = {
           });
         } else {
           await fetch(
-            `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${crypto_name}`
+            `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${crypto_name.toLowerCase()}`
           )
             .then((res) => {
               return res.json();
             })
             .then((res) => {
-              console.log('test', res);
-              if (res.body) {
-                return Crypto.create({
-                  crypto_name: crypto_name.toLowerCase(),
-                  holding_amount,
-                  user_id,
-                });
-              } else {
+              if (res.length === 0) {
                 throw new Error('Unable to find CryptoCurrency');
               }
+              const crypto = Crypto.create({
+                crypto_name: crypto_name.toLowerCase(),
+                holding_amount,
+                user_id,
+              });
+              return crypto;
+            })
+            .catch((e) => {
+              throw new Error('Unable to find CryptoCurrency');
             });
         }
       } catch (e) {
@@ -411,41 +416,41 @@ const resolvers = {
         throw new Error('Unable to update CryptoCurrency');
       }
     },
-    removeFollower: async(parent, { follower_user_id, followed_user_id }) => {
+    removeFollower: async (parent, { follower_user_id, followed_user_id }) => {
       try {
         const findFollower = await Follow.findOne({
           where: { follower_user_id, followed_user_id },
         });
         if (findFollower) {
-          await findFollower.destroy({})
+          await findFollower.destroy({});
         } else {
-          throw new Error ('Unable to find Follower')
+          throw new Error('Unable to find Follower');
         }
       } catch (e) {
-        throw new Error('Unable to remove Follower')
+        throw new Error('Unable to remove Follower');
       }
     },
-    removeFollowing: async(parent, { follower_user_id, followed_user_id }) => {
+    removeFollowing: async (parent, { follower_user_id, followed_user_id }) => {
       try {
         const findFollowing = await Follow.findOne({
           where: { follower_user_id, followed_user_id },
         });
         if (findFollowing) {
-          await findFollowing.destroy({})
+          await findFollowing.destroy({});
         } else {
-          throw new Error ('Unable to find Follower')
+          throw new Error('Unable to find Follower');
         }
       } catch (e) {
-        throw new Error('Unable to remove Follower')
+        throw new Error('Unable to remove Follower');
       }
     },
-    addMessage: async(parent, { text, sender_id, receiver_id}) => {
+    addMessage: async (parent, { text, sender_id, receiver_id }) => {
       try {
-        return await Message.create({ text, sender_id, receiver_id })
+        return await Message.create({ text, sender_id, receiver_id });
       } catch (e) {
-        throw new Error('Unable to Create a Message')
+        throw new Error('Unable to Create a Message');
       }
-    }
+    },
   },
 };
 
