@@ -158,6 +158,7 @@ const typeDefs = gql`
     removeFollowing(follower_user_id: String!, followed_user_id: String!):Follow
     deletePost(id: ID!): Post
     addComment(text: String!, user_id: ID!, post_id: ID!): Comment!
+    deleteComment(id: ID!): Comment
     addCrypto(crypto_name: String!, holding_amount: Int!, user_id: ID!): Crypto
     updateCrypto(id: ID! holding_amount: Int!): Crypto
     deleteCrypto(id: ID!): Crypto
