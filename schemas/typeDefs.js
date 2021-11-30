@@ -169,6 +169,7 @@ const typeDefs = gql`
     addReactionOnPost(reaction_type: String!, user_id: ID!, post_id: ID!): Reaction
     addReactionOnComment(reaction_type: String!, user_id: ID!, comment_id: ID!): Reaction
     deleteReactionOnPost(user_id: ID!, post_id: ID!): Reaction
+    deleteReactionOnComment(user_id: ID!, comment_id: ID!): Reaction
   }
 `;
 

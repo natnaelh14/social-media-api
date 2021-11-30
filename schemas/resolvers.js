@@ -115,20 +115,6 @@ const resolvers = {
         throw new Error('Unable to Find Messages');
       }
     },
-    //REACTIONS
-    // reactions: async (parent, { post_id, comment_id }) => {
-    //   if (post_id) {
-    //     const reactions = await Reaction.findAll({
-    //       where: { post_id },
-    //     });
-    //     return reactions;
-    //   } else if (comment_id) {
-    //     const reactions = await Reaction.findAll({
-    //       where: { comment_id },
-    //     });
-    //     return reactions;
-    //   }
-    // },
     reactionsByUserAndPost: async (parent, { user_id, post_id }) => {
       try {
         return await Reaction.findOne({
@@ -529,7 +515,17 @@ const resolvers = {
       { reaction_type, user_id, comment_id }
     ) => {
       try {
-        return await Reaction.create({ reaction_type, user_id, comment_id });
+        const findReaction = await Reaction.findOne({
+          where: { [Op.and]: [{ user_id }, { comment_id }] },
+        });
+        if (findReaction) {
+          return await findReaction.update({
+            ...findReaction,
+            reaction_type,
+          });
+        } else {
+          return await Reaction.create({ reaction_type, user_id, comment_id });
+        }
       } catch (e) {
         throw new Error('Unable to add Reaction on a Comment');
       }
@@ -541,6 +537,15 @@ const resolvers = {
         });
       } catch (e) {
         throw new Error('Unable to delete post reaction');
+      }
+    },
+    deleteReactionOnComment: async (parent, { user_id, comment_id }) => {
+      try {
+        await Reaction.destroy({
+          where: { [Op.and]: [{ user_id }, { comment_id }] },
+        });
+      } catch (e) {
+        throw new Error('Unable to delete comment reaction');
       }
     },
   },
