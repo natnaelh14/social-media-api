@@ -120,7 +120,10 @@ const typeDefs = gql`
     comments(post_id: ID!): [Comment]
     messengers(id: ID!): [User]
     messages(sender_id: String!, receiver_id: String!): [Message]
-    reactions(post_id: ID, comment_id: ID): [Reaction]
+    reactionsByUserAndPost(post_id: ID!, user_id: ID!): Reaction
+    reactionsByUserAndComment(comment_id: ID!, user_id: ID!): Reaction
+    reactionsByPost(reaction_type: String!, post_id: ID!): [Reaction]
+    reactionsByComment(reaction_type: String!, comment_id: ID!): [Reaction]
     postsByHashtag(hashtag_name: String!): [Post!]
     cryptoByUserId(user_id: ID!): [Crypto!]
     friendRequest(receiver_id: String!, sender_id: String!): FriendRequest
@@ -163,6 +166,9 @@ const typeDefs = gql`
     updateCrypto(id: ID! holding_amount: Int!): Crypto
     deleteCrypto(id: ID!): Crypto
     addMessage(text: String!, sender_id: String!, receiver_id: String!): Message
+    addReactionOnPost(reaction_type: String!, user_id: ID!, post_id: ID!): Reaction
+    addReactionOnComment(reaction_type: String!, user_id: ID!, comment_id: ID!): Reaction
+    deleteReactionOnPost(user_id: ID!, post_id: ID!): Reaction
   }
 `;
 

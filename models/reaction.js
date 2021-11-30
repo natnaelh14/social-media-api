@@ -14,9 +14,13 @@ Reaction.init(
     reaction_type: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isIn: [['LIKE', 'DISLIKE']],
+      },
     },
     post_id: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: 'post',
         key: 'id',
@@ -24,6 +28,7 @@ Reaction.init(
     },
     comment_id: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: 'comment',
         key: 'id',
@@ -31,6 +36,7 @@ Reaction.init(
     },
     user_id: {
       type: DataTypes.STRING,
+      allowNull: false,
       references: {
         model: 'user',
         key: 'id',
