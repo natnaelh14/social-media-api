@@ -70,7 +70,20 @@ const resolvers = {
       }
       return followingsList;
     },
-
+    checkFriendship: async (parent, { follower, followed }) => {
+      try {
+        const verifyFr = await Follow.findOne({
+          where: { [Op.and]: [{ follower_user_id: follower }, { followed_user_id: followed }] },
+        })
+        if (verifyFr) {
+          return true
+        } else {
+          return false
+        }
+      } catch (e) {
+        throw new Error('Unable to verify Friendship')
+      }
+    },
     //COMMENTS
     comments: async (parent, { post_id }) => {
       const comments = await Comment.findAll({
