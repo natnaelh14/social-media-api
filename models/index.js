@@ -23,6 +23,8 @@ Post.hasMany(Comment, {
     name: 'post_id',
     allowNull: false,
   },
+  hooks: true,
+  onDelete: 'cascade'
 });
 
 //COMMENT
@@ -56,6 +58,8 @@ Post.hasMany(Reaction, {
     name: 'post_id',
     allowNull: false,
   },
+  hooks: true,
+  onDelete: 'cascade'
 })
 
 Reaction.belongsTo(Post, { as: 'post'});
