@@ -111,12 +111,18 @@ const typeDefs = gql`
     REJECTED
   }
 
+  enum Verify {
+    YAY
+    NAY
+  }
+
   type Query {
     userProfile(id: ID!): User
     usersList(handle: String!): [User]
     posts(user_id: ID!): [Post!]
     followers(id: ID!): [User]
     followings(id: ID!): [User]
+    checkFriendship(follower: String!, followed: String!): Boolean
     comments(post_id: ID!): [Comment]
     messengers(id: ID!): [User]
     messages(sender_id: String!, receiver_id: String!): [Message]
