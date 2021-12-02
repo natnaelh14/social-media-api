@@ -38,6 +38,26 @@ const resolvers = {
         where: { user_id },
       });
     },
+    postsByFollowing: async (parent, { user_id }) => {
+      const ownPosts = await Post.findAll({
+        where: { user_id },
+      });
+      const findFollowing = await Follow.findAll({
+        where: { follower_user_id: user_id },
+      });
+      if (findFollowing) {
+        let postsList = [...ownPosts];
+        for (let i = 0; i < findFollowing.length; i++) {
+          let posts = await Post.findAll({
+            where: { user_id: findFollowing[i].followed_user_id },
+          });
+          postsList.push(...posts);
+        }
+        return postsList;
+      } else {
+        return ownPosts;
+      }
+    },
     //FOLLOWERS
     followers: async (parent, { id }) => {
       const followers = await Follow.findAll({
@@ -73,15 +93,20 @@ const resolvers = {
     checkFriendship: async (parent, { follower, followed }) => {
       try {
         const verifyFr = await Follow.findOne({
-          where: { [Op.and]: [{ follower_user_id: follower }, { followed_user_id: followed }] },
-        })
+          where: {
+            [Op.and]: [
+              { follower_user_id: follower },
+              { followed_user_id: followed },
+            ],
+          },
+        });
         if (verifyFr) {
-          return true
+          return true;
         } else {
-          return false
+          return false;
         }
       } catch (e) {
-        throw new Error('Unable to verify Friendship')
+        throw new Error('Unable to verify Friendship');
       }
     },
     //COMMENTS

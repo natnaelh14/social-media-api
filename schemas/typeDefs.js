@@ -119,7 +119,8 @@ const typeDefs = gql`
   type Query {
     userProfile(id: ID!): User
     usersList(handle: String!): [User]
-    posts(user_id: ID!): [Post!]
+    posts(user_id: ID!): [Post]
+    postsByFollowing(user_id: ID!): [Post]
     followers(id: ID!): [User]
     followings(id: ID!): [User]
     checkFriendship(follower: String!, followed: String!): Boolean
