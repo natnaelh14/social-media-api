@@ -32,6 +32,21 @@ const resolvers = {
       );
       return users;
     },
+    whoToFollowUsers: async (parent, { id }) => {
+      findFollowingRequest = await FriendRequest.findAll({
+        where: { sender_id: id } 
+      })
+      let friendRequestArray = [id]
+      if(findFollowingRequest) {
+        for(let i=0; i < findFollowingRequest.length; i++) {
+          friendRequestArray.push(findFollowingRequest[i].receiver_id)
+        }
+        const users = await User.findAll({ })
+        return users.filter(user => !friendRequestArray.includes(user.id));
+      } else {
+        return;
+      }
+    },
     // POST RESOLVERS
     posts: async (parent, { user_id }) => {
       return await Post.findAll({
