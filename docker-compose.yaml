@@ -1,24 +1,29 @@
 version: '3.8'
 
+# services are what we going to orchestrate
 services: 
   mysqldb:
     image: mysql
     restart: always
-    env_file: ./.env
+    env_file: ./backend/.env
     environment:
       MYSQL_ROOT_PASSWORD: $DB_PASSWORD
       MYSQL_DATABASE: $DB_NAME
     ports:
-      - $DB_LOCAL_PORT:$DB_DOCKER_PORT
-    volumes: 
+      - $DB_LOCAL_PORT: $DB_DOCKER_PORT
+    volumes:
       - db:/var/lib/mysql
-      
-  web:
+  
+  crypto-connect-api:
     depends_on:
       - mysqldb
-    build: ./
+    container_name: crypto_connect_server
+    image: crypto_connect_server_image
     restart: unless-stopped
-    env_file: ./.env 
+    env_file: ./backend/.env
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     environment:
@@ -27,8 +32,24 @@ services:
       - DB_PASSWORD=$DB_PASSWORD
       - DB_NAME=$DB_NAME
       - DB_PORT=$DB_DOCKER_PORT
+  
+  crypto-connect-ui:
+    depends_on:
+      - crypto-connect-api
+    container_name: crypto_connect_web
+    image: crypto_connect_web_image
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    env_file: ./backend/.env
+    ports:
+      - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
     stdin_open: true
     tty: true
+    links:
+      - "backend"
+
 
 volumes: 
   db:

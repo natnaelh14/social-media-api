@@ -530,8 +530,12 @@ const resolvers = {
         const findFollowing = await Follow.findOne({
           where: { follower_user_id, followed_user_id },
         });
-        if (findFollowing) {
+        const findRequest = await FriendRequest.findOne({
+          where: { sender_id:follower_user_id, receiver_id: followed_user_id }
+        })
+        if (findFollowing && findRequest) {
           await findFollowing.destroy({});
+          await findRequest.destroy({});
         } else {
           throw new Error('Unable to find Follower');
         }
