@@ -6,11 +6,11 @@ const { typeDefs, resolvers } = require('./schemas');
 const PORT = process.env.PORT || 3001;
 
 async function startApolloServer() {
+  try {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
   });
-
   const app = express();
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
@@ -32,7 +32,7 @@ async function startApolloServer() {
   await server.start();
 
   server.applyMiddleware({ app });
-
+  sequelize.sync({ force: false }).then(() => {
   app.listen(() => {
     new Promise((resolve) => app.listen(PORT, resolve));
     console.log(`API server running on port ${PORT}!`);
@@ -41,6 +41,11 @@ async function startApolloServer() {
     );
     return { server, app };
   });
+});
+  } catch (e) {
+    console.log(e)
+  }
+
 }
 
 startApolloServer();

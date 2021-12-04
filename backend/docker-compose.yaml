@@ -1,0 +1,23 @@
+version: '3.8'
+
+# services are what we going to orchestrate
+services: 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5001:5001
+    volumes:
+      - .:/app
+      - '/app/node_modules'
+    depends_on:
+      - mysql_server
+
+  mysql_server:
+    image: mysql:8.0
+    environment:
+      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: social_media_db
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: secret
