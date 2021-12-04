@@ -14,8 +14,10 @@ async function startApolloServer() {
     const app = express();
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
+
     const sequelize = require('./config/connection');
     const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
     const sess = {
       secret: 'Super secret secret',
       cookie: {},
@@ -28,6 +30,7 @@ async function startApolloServer() {
     };
     app.use(session(sess));
     await server.start();
+
     server.applyMiddleware({ app });
     sequelize.sync({ force: false }).then(() => {
       app.listen(() => {
