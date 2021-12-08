@@ -32,6 +32,10 @@ const resolvers = {
       );
       return users;
     },
+    allUsers: async (parent, {}) => {
+      const users = await User.findAll({ });
+      return users;
+    },
     whoToFollowUsers: async (parent, { id }) => {
       findFollowingRequest = await FriendRequest.findAll({
         where: { sender_id: id } 
@@ -345,8 +349,10 @@ const resolvers = {
         isActive,
       }
     ) => {
-      const userData = await User.findOne({ id });
-      return await userData.update({
+      const userData = await User.findOne({ 
+        where: { id }
+      })
+      const user =  await userData.update({
         id,
         email,
         handle,
@@ -360,6 +366,7 @@ const resolvers = {
         status,
         isActive,
       });
+      return user;
     },
 
     addPost: async (parent, { user_id, text }) => {

@@ -26,12 +26,12 @@ const seedDatabase = async () => {
   try {
     await sequelize.sync({ force: true });
 
-    // //USER
-    // await User.bulkCreate(userData, {
-    //   individualHooks: true,
-    //   returning: true,
-    // });
-    //POST
+    //USER
+    await User.bulkCreate(userData, {
+      individualHooks: true,
+      returning: true,
+    });
+    POST
     await Post.bulkCreate(postData, {
       individualHooks: true,
       returning: true,

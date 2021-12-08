@@ -119,6 +119,7 @@ const typeDefs = gql`
   type Query {
     userProfile(id: ID!): User
     usersList(handle: String!): [User]
+    allUsers: [User]
     whoToFollowUsers(id: ID!): [User]
     posts(user_id: ID!): [Post]
     postsByFollowing(user_id: ID!): [Post]
