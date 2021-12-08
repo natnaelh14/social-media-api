@@ -119,7 +119,7 @@ const typeDefs = gql`
   type Query {
     userProfile(id: ID!): User
     usersList(handle: String!): [User]
-    allUsers: [User]
+    allUsers(id: ID!): [User]
     whoToFollowUsers(id: ID!): [User]
     posts(user_id: ID!): [Post]
     postsByFollowing(user_id: ID!): [Post]
@@ -141,7 +141,6 @@ const typeDefs = gql`
     blockedFriendsList(id: ID!): [User!]
     twitterSearch(keyword: String!):[String]
     cryptoSearchAPI(name: String!): CryptoAPI
-
   }
   type Mutation {
     addUserProfile(id: ID!, email: String!, handle: String!): User!

@@ -32,9 +32,9 @@ const resolvers = {
       );
       return users;
     },
-    allUsers: async (parent, {}) => {
+    allUsers: async (parent, { id }) => {
       const users = await User.findAll({ });
-      return users;
+      return users.filter(user => user.id !== id);
     },
     whoToFollowUsers: async (parent, { id }) => {
       findFollowingRequest = await FriendRequest.findAll({
