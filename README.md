@@ -2,6 +2,10 @@
 ## Crypto Connect
 ![alt text](https://img.shields.io/github/last-commit/natnael14/-portfolio-website)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+## Live Link
+http://crypto-connect-app.herokuapp.com/signin
+## Crypto Connect UI Repo
+https://github.com/natnaelh14/social-media-app
 ## Description
 A full-stack social media application based on cryptocurrency.
 ## Table of Contents
@@ -17,15 +21,16 @@ A full-stack social media application based on cryptocurrency.
 
 To run necessary dependencies, run the following command:
 
-npm i
+    npm i
 
 To run docker for local development:
 
 * change the host to 'mysql_server' in connection.js
 
-docker-compose build
+      docker-compose build
 
-docker-compose up
+      docker-compose up
+      
 ## Usage
 ![alt text](./img/screenshot-01.png)
 ![alt text](./img/screenshot-02.png)
@@ -42,7 +47,9 @@ Copyright (C) 2021 Natnael Haile
 ## Contributing
 * If you want to contribute to this project, you can fork it. After you make necessary modifications, you can create a pull request.
 ## Tests
-npm run test
+
+      npm run test
+
 ## Questions
 * If you have any questions, create an issue on the project.
 ## Contact
