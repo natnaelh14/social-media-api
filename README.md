@@ -1,7 +1,7 @@
 
 # Crypto Connect
-![alt text](https://img.shields.io/github/last-commit/natnael14/-portfolio-website)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+* ![alt text](https://img.shields.io/github/last-commit/natnael14/-portfolio-website)
+* [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ## Live Link
 http://crypto-connect-app.herokuapp.com/signin
 ## Crypto Connect UI Repo
