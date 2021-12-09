@@ -23,6 +23,8 @@ To run necessary dependencies, run the following command:
 
     npm i
 
+## Docker
+
 To run docker for local development:
 
 * change the host to 'mysql_server' in connection.js
