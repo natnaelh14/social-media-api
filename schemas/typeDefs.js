@@ -174,6 +174,7 @@ const typeDefs = gql`
     updateCrypto(id: ID! holding_amount: Int!): Crypto
     deleteCrypto(id: ID!): Crypto
     addMessage(text: String!, sender_id: String!, receiver_id: String!): Message
+    deleteMessage(id: ID!): Message
     addReactionOnPost(reaction_type: String!, user_id: ID!, post_id: ID!): Reaction
     addReactionOnComment(reaction_type: String!, user_id: ID!, comment_id: ID!): Reaction
     deleteReactionOnPost(user_id: ID!, post_id: ID!): Reaction

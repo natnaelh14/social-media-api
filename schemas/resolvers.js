@@ -557,6 +557,15 @@ const resolvers = {
         throw new Error('Unable to Create a Message');
       }
     },
+    deleteMessage: async (parent, { id }) => {
+      try {
+        return await Message.destroy({ 
+          where: { id }
+        })
+      } catch (e) {
+        throw new Error ("Unable to delete Message");
+      }
+    },
     addReactionOnPost: async (parent, { reaction_type, user_id, post_id }) => {
       try {
         const findReaction = await Reaction.findOne({
