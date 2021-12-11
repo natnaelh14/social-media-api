@@ -9,7 +9,6 @@ const {
   Crypto,
   FriendRequest,
 } = require('../models');
-const Twitter = require('twitter');
 const needle = require('needle');
 const fetch = require('cross-fetch');
 require('dotenv').config();
@@ -523,8 +522,12 @@ const resolvers = {
         const findFollower = await Follow.findOne({
           where: { follower_user_id, followed_user_id },
         });
-        if (findFollower) {
+        const findRequest = await FriendRequest.findOne({
+          where: { sender_id:follower_user_id, receiver_id: followed_user_id }
+        })
+        if (findFollower && findRequest) {
           await findFollower.destroy({});
+          await findRequest.destroy({});
         } else {
           throw new Error('Unable to find Follower');
         }
