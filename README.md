@@ -13,7 +13,7 @@ A full-stack social media application based on cryptocurrency.
 * Features include personalized user profile, posts, comments, likes, dislikes, messaging, following other users,
 * Share Posts, and Tweets
 * Integrated loading animation and error handling for all the components
-* Create a cryptocurrency portfolio and share it with friends
+* Create a Cryptocurrency portfolio and share it with friends
 * Get real-time crypto pricing, tweets about crypto holdings and other info
 * Ability to use dockerized images for local development
 ## Table of Contents
