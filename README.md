@@ -1,6 +1,6 @@
 
 # Crypto Connect
-### ![alt text](https://img.shields.io/github/last-commit/natnael14/socialmediaapi)
+### ![alt text](https://img.shields.io/github/last-commit/natnaelh14/social-media-api)
 ### [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ## Live Link
 https://crypto-connect-app.herokuapp.com/signin
