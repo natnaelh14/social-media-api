@@ -3,24 +3,22 @@ require('dotenv').config();
 // Create connection to our db
 const connect = () => {
   try {
-const sequelize = process.env.JAWSDB_URL
-  ? new Sequelize(process.env.JAWSDB_URL)
-  : new Sequelize(
-      process.env.DB_NAME,
-      process.env.DB_USER,
-      process.env.DB_PASSWORD,
-      {
-        // host: 'mysql_server',
-        host: 'localhost',
-        dialect: 'mysql',
-        port: 3306,
-      }
-    );
-    return sequelize
+    const sequelize = process.env.JAWSDB_URL
+      ? new Sequelize(process.env.JAWSDB_URL)
+      : new Sequelize(
+          process.env.DB_NAME,
+          process.env.DB_USER,
+          process.env.DB_PASSWORD,
+          {
+            host: 'localhost',
+            dialect: 'mysql',
+            port: 3306,
+          }
+        );
+    return sequelize;
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
-}
-
+};
 
 module.exports = connect();
