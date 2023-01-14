@@ -32,20 +32,20 @@ const resolvers = {
       return users;
     },
     allUsers: async (parent, { id }) => {
-      const users = await User.findAll({ });
-      return users.filter(user => user.id !== id);
+      const users = await User.findAll({});
+      return users.filter((user) => user.id !== id);
     },
     whoToFollowUsers: async (parent, { id }) => {
       findFollowingRequest = await FriendRequest.findAll({
-        where: { sender_id: id } 
-      })
-      let friendRequestArray = [id]
-      if(findFollowingRequest) {
-        for(let i=0; i < findFollowingRequest.length; i++) {
-          friendRequestArray.push(findFollowingRequest[i].receiver_id)
+        where: { sender_id: id },
+      });
+      let friendRequestArray = [id];
+      if (findFollowingRequest) {
+        for (let i = 0; i < findFollowingRequest.length; i++) {
+          friendRequestArray.push(findFollowingRequest[i].receiver_id);
         }
-        const users = await User.findAll({ })
-        return users.filter(user => !friendRequestArray.includes(user.id));
+        const users = await User.findAll({});
+        return users.filter((user) => !friendRequestArray.includes(user.id));
       } else {
         return;
       }
@@ -321,6 +321,9 @@ const resolvers = {
         });
       return cryptoResult;
     },
+    checkConnection: () => {
+      return true;
+    },
   },
   Mutation: {
     addUserProfile: async (parent, { id, email, handle }) => {
@@ -348,10 +351,10 @@ const resolvers = {
         isActive,
       }
     ) => {
-      const userData = await User.findOne({ 
-        where: { id }
-      })
-      const user =  await userData.update({
+      const userData = await User.findOne({
+        where: { id },
+      });
+      const user = await userData.update({
         id,
         email,
         handle,
@@ -523,8 +526,8 @@ const resolvers = {
           where: { follower_user_id, followed_user_id },
         });
         const findRequest = await FriendRequest.findOne({
-          where: { sender_id:follower_user_id, receiver_id: followed_user_id }
-        })
+          where: { sender_id: follower_user_id, receiver_id: followed_user_id },
+        });
         if (findFollower && findRequest) {
           await findFollower.destroy({});
           await findRequest.destroy({});
@@ -541,8 +544,8 @@ const resolvers = {
           where: { follower_user_id, followed_user_id },
         });
         const findRequest = await FriendRequest.findOne({
-          where: { sender_id:follower_user_id, receiver_id: followed_user_id }
-        })
+          where: { sender_id: follower_user_id, receiver_id: followed_user_id },
+        });
         if (findFollowing && findRequest) {
           await findFollowing.destroy({});
           await findRequest.destroy({});
@@ -562,11 +565,11 @@ const resolvers = {
     },
     deleteMessage: async (parent, { id }) => {
       try {
-        return await Message.destroy({ 
-          where: { id }
-        })
+        return await Message.destroy({
+          where: { id },
+        });
       } catch (e) {
-        throw new Error ("Unable to delete Message");
+        throw new Error('Unable to delete Message');
       }
     },
     addReactionOnPost: async (parent, { reaction_type, user_id, post_id }) => {
