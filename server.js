@@ -5,7 +5,6 @@ const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./schemas');
 const sequelize = require('./config/connection');
 const PORT = process.env.PORT || 3005;
-const path = require('path');
 
 async function startApolloServer() {
   try {
@@ -31,10 +30,6 @@ async function startApolloServer() {
       })
     );
     sessionStore.sync();
-    // app.use(express.static(path.join(__dirname, '../client/build')));
-    // app.get('*', (req, res) => {
-    //   res.sendFile(path.join(__dirname, '../client/build/index.html'));
-    // });
     await apolloServer.start();
     apolloServer.applyMiddleware({ app });
 

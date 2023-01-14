@@ -139,8 +139,9 @@ const typeDefs = gql`
     friendRequests(id: ID!): [User!]
     friendsList(id: ID!): [User!]
     blockedFriendsList(id: ID!): [User!]
-    twitterSearch(keyword: String!):[String]
+    twitterSearch(keyword: String!): [String]
     cryptoSearchAPI(name: String!): CryptoAPI
+    checkConnection: Boolean!
   }
   type Mutation {
     addUserProfile(id: ID!, email: String!, handle: String!): User!
@@ -165,18 +166,29 @@ const typeDefs = gql`
       receiver_id: String!
       status: Status!
     ): FriendRequest!
-    removeFollower(follower_user_id: String!, followed_user_id: String!):Follow
-    removeFollowing(follower_user_id: String!, followed_user_id: String!):Follow
+    removeFollower(follower_user_id: String!, followed_user_id: String!): Follow
+    removeFollowing(
+      follower_user_id: String!
+      followed_user_id: String!
+    ): Follow
     deletePost(id: ID!): Post
     addComment(text: String!, user_id: ID!, post_id: ID!): Comment!
     deleteComment(id: ID!): Comment
     addCrypto(crypto_name: String!, holding_amount: Int!, user_id: ID!): Crypto
-    updateCrypto(id: ID! holding_amount: Int!): Crypto
+    updateCrypto(id: ID!, holding_amount: Int!): Crypto
     deleteCrypto(id: ID!): Crypto
     addMessage(text: String!, sender_id: String!, receiver_id: String!): Message
     deleteMessage(id: ID!): Message
-    addReactionOnPost(reaction_type: String!, user_id: ID!, post_id: ID!): Reaction
-    addReactionOnComment(reaction_type: String!, user_id: ID!, comment_id: ID!): Reaction
+    addReactionOnPost(
+      reaction_type: String!
+      user_id: ID!
+      post_id: ID!
+    ): Reaction
+    addReactionOnComment(
+      reaction_type: String!
+      user_id: ID!
+      comment_id: ID!
+    ): Reaction
     deleteReactionOnPost(user_id: ID!, post_id: ID!): Reaction
     deleteReactionOnComment(user_id: ID!, comment_id: ID!): Reaction
   }
